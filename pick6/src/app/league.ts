@@ -1,6 +1,6 @@
 export class League {
    constructor (
-      id?: string,
+      _id?: string,
       name?: string,
       admin?: string,
       numteams?: string,

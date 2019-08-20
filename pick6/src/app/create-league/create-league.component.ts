@@ -4,9 +4,6 @@ import { User } from '../user';
 import { CreateLeague } from '../services/league.service'
 import { AddTeamService } from '../services/add-team.service'
 import { LoginService } from '../services/login.service';
-import { tap } from 'rxjs/operators';
-import { from } from 'rxjs';
-
 
 @Component({
   selector: 'app-create-league',
@@ -15,8 +12,8 @@ import { from } from 'rxjs';
 })
 
 export class CreateLeagueComponent implements OnInit {
-  league = new League();
-  currentUser = new User();
+  league = new League('','','','',[]);
+  currentUser = new User('','','','','','');
   form = {};
   n_teams = 0;
   max_teams = 10;
@@ -39,6 +36,8 @@ export class CreateLeagueComponent implements OnInit {
      this._createLeague.create(this.league)
       .subscribe(
          data => {
+            this.league._id = String(data.leagueid),
+            console.log(this.league._id),
             console.log('Success!', JSON.stringify(data)),
             this.sendTeams(this.league.teams);
          },

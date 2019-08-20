@@ -42,30 +42,92 @@ module.exports = function(router) {
             if (err) {
               res.send({success: false, message : err.errmsg || "Error"});
             } else {
-              res.send({success: true, message: 'League created successfully!'});
+              res.send({success: true, message: 'League created successfully!', leagueid: league._id});
             }
          });
       };
-      console.log(league);
    });
 
 
 
 
   router.post('/addteam', function(req,res) {
-     // console.log(req.body);
+     console.log("ADD TEAM");
+     console.log(req.body);
      User.findOne({"username": req.body.username}, "email username", function (err, user) {
          if (err || !user) {
-            console.log(err);
             res.send({success: false, message : "Invalid member"});
          } else {
-            console.log(user);
             var team = new Team();
             team.userid = user._id;
             team.leagueid = req.body.league._id;
-            res.send({success: true, message : "Member "+user.username+" added!"});
+            // console.log(team);
+            // console.log(req.body);
+            team.save(function(err) {
+               if (err) {
+                 res.send({success: false, message : err.errmsg || "Error"});
+               } else {
+                 res.send({success: true, message : "Member "+user.username+" added!"});
+               }
+            });
          }
       });
+
+  });
+
+  router.post('/getleagues', function(req,res) {
+     console.log(req.body);
+     Team.find({"userid": req.body._id}, "leagueid", function (err, teams) {
+       if (err || !teams) {
+          res.send({success: false, message : "Could not get leagues"});
+       } else {
+          console.log(teams);
+          leagueids = []
+          for(var team in teams){
+              leagueids.push(teams[team]["leagueid"]);
+           }
+           console.log(leagueids);
+           League.find({"_id": leagueids}, "name admin", function (err,leagues) {
+              if (err || !teams) {
+                 res.send({success: false, message : "Could not get leagues"});
+              } else {
+                 res.send({success: true, leagues : leagues});
+              }
+           })
+       }
+    })
+
+  });
+
+  router.post('/leaguepage', function(req,res) {
+     console.log(req.body);
+     League.findOne({"_id": req.body._id}, "name admin", function (err, league) {
+       if (err || !league) {
+          res.send({success: false, message : "Could not get league"});
+       } else {
+           Team.find({"leagueid": req.body._id}, "userid leagueid", function (err,teams) {
+             if (err || !teams) {
+                 res.send({success: false, message : "Could not get teams"});
+             } else {
+                userids = [];
+                for (var team in teams){
+                   userids.push(teams[team]["userid"]);
+                }
+                User.find({"_id": userids}, "username first last email", function (err,users) {
+                   if ( err || !users) {
+                      res.send({success: false, message : "Could not get users"});
+                   } else {
+                     users_by_id = {};
+                     for (var user in users) {
+                        users_by_id[users[user]["_id"]] = users[user];
+                     }
+                     res.send({success: true, league: league, teams : teams, users: users_by_id});
+                   }
+                })
+              }
+           })
+       }
+    })
 
   });
 

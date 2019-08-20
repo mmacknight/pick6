@@ -1,6 +1,6 @@
 export class Team {
    constructor (
-      id: string,
+      _id: string,
       league: string,
       owner: string
    ) {}

@@ -1,5 +1,5 @@
-.league-container {
-   width: 50%;
+.team-container {
+   width: 20%;
    padding: 5px;
    border-style: solid;
    border: 10px;
@@ -7,32 +7,32 @@
    border-radius: 10%;
 }
 
-.league-box {
+.team-box {
    width: 100%%;
    padding: 50%;
-   position: relative; /* If you want text inside of it */
+   position: relative;
 }
 
-.league-name {
+.team-name {
    position: absolute;
    top: 0%;
    left: 0;
    bottom: 0;
    right: 0;
-   font-size: 200%;
+   font-size: 100%;
    color: white;
-   background-color: black;
+   background-color: lightblue;
    border: 2px;
    border-radius: 10px 10px 10px 10px;
 }
 
-.league-info {
+.team-info {
    position: absolute;
    top: 25%;
    left: 0;
    bottom: 0;
    right: 0;
-   font-size: 200%;
+   font-size: 50%;
    color: orange;
    background-color: lightgray;
    border: 2px;
@@ -40,7 +40,7 @@
 }
 
 @media only screen and (max-width: 600px) {
-  .league-container {
+  .team-container {
      width: 100%;
  }
 }
