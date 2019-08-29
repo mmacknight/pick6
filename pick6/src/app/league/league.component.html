@@ -1,3 +1,4 @@
+<button *ngIf="this.currentUser._id == this.league.admin" (click)="manage(this.id)" class="btn btn-primary">Manage League</button>
 <div class="container">
    <div class="row text-center">
       <div *ngFor="let team of teams; index as i"  class="team-container">

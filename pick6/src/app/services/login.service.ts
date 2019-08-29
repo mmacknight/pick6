@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-// import { environment } from '@environments/environment';
-import { User } from '../user';
+import { environment } from '@environments/environment';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,7 @@ import { User } from '../user';
 export class LoginService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
-   _url = 'http://localhost:8080/api/login';
+   _url = environment.server+'/api/login';
 
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));

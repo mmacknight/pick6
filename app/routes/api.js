@@ -1,5 +1,7 @@
 var User = require('../models/user');
+var School = require('../models/school');
 var League = require('../models/league');
+var path = require('path');
 var Team = require('../models/team');
 var bcrypt = require('bcrypt-nodejs');
 
@@ -33,15 +35,16 @@ module.exports = function(router) {
       var league = new League();
       league.name = req.body.name;
       league.admin = req.body.admin;
-      league.numteams = req.body.numteams;
       members = []
-      if (!req.body.name || !req.body.admin || !req.body.numteams) {
-         res.send('Ensure name, admin, number of teams were provided');
+      if (!req.body.name || !req.body.admin) {
+         res.send({success: false, message : "Missing Required Fields"});
       } else {
          league.save(function(err) {
             if (err) {
+               console.log("Error");
               res.send({success: false, message : err.errmsg || "Error"});
             } else {
+               console.log("Success");
               res.send({success: true, message: 'League created successfully!', leagueid: league._id});
             }
          });
@@ -61,6 +64,12 @@ module.exports = function(router) {
             var team = new Team();
             team.userid = user._id;
             team.leagueid = req.body.league._id;
+            team.school0 = '';
+            team.school1 = '';
+            team.school2 = '';
+            team.school3 = '';
+            team.school4 = '';
+            team.school5 = '';
             // console.log(team);
             // console.log(req.body);
             team.save(function(err) {
@@ -105,13 +114,15 @@ module.exports = function(router) {
        if (err || !league) {
           res.send({success: false, message : "Could not get league"});
        } else {
-           Team.find({"leagueid": req.body._id}, "userid leagueid", function (err,teams) {
+           Team.find({"leagueid": req.body._id}, "userid leagueid school0 school1 school2 school3 school4 school5", function (err,teams) {
              if (err || !teams) {
                  res.send({success: false, message : "Could not get teams"});
              } else {
                 userids = [];
                 for (var team in teams){
                    userids.push(teams[team]["userid"]);
+                   teams[team].schools = [];
+                   teams[team].schools = [team.school0, team.school1, team.school2, team.school3, team.school4, team.school5];
                 }
                 User.find({"_id": userids}, "username first last email", function (err,users) {
                    if ( err || !users) {
@@ -121,6 +132,7 @@ module.exports = function(router) {
                      for (var user in users) {
                         users_by_id[users[user]["_id"]] = users[user];
                      }
+                     console.log(teams);
                      res.send({success: true, league: league, teams : teams, users: users_by_id});
                    }
                 })
@@ -168,6 +180,142 @@ module.exports = function(router) {
       // var query = User.find({"username": username, "password": password_hash});
       // query.select('_id username password email first last');
    });
+
+   router.post('/updateschools', function(req,res) {
+      var fs = require('fs');
+      var colors = require("./data/colors");
+
+      fs.readFile('./app/routes/data/fbs.csv', 'utf8', function(err, contents) {
+         console.log(contents);
+         // console.log(contents);
+         contents_array = contents.split(/[\r\n]+/);
+         cfb_schools = [];
+         categories = [];
+         for (var c in contents_array) {
+            var s = contents_array[c].split(',')[0]
+            if (s) {
+               s = s.trim();
+            }
+            var m = contents_array[c].split(',')[1];
+            if (m) {
+               m = m.trim();
+            }
+            var conference = contents_array[c].split(',')[4];
+            if (conference) {
+               conference = conference.trim();
+            }
+            var school = new School();
+            if (s && m) {
+               team_colors = colors[s+' '+m];
+               while (typeof(team_colors) === "string") {
+                  console.log(team_colors);
+                  team_colors = colors[team_colors];
+               }
+               console.log(s+' '+m);
+               console.log(team_colors);
+            }
+            school.school = s;
+            school.mascot = m;
+            school.team_name = s + ' ' + m;
+            school.conference = conference;
+            school.division = "FBS";
+            school.wins = 0;
+            school.primary_color = '#'+team_colors[0];
+            if (team_colors.length > 2) {
+               school.secondary_color = '#'+team_colors[2];
+            } else {
+               school.secondary_color = '#'+team_colors[1];
+            }
+            school.save(function(err) {
+               if (err) {
+                 console.log({success: false, message : "Error for "+s});
+               } else {
+               }
+            });
+         }
+      });
+
+      fs.readFile('./app/routes/data/fcs.csv', 'utf8', function(err, contents) {
+         // console.log(contents);
+         contents_array = contents.split(/[\r\n]+/);
+         cfb_schools = [];
+         categories = [];
+
+         for (var c in contents_array) {
+            var s = contents_array[c].split(',')[0]
+            if (s) {
+               s = s.trim();
+            }
+            var m = contents_array[c].split(',')[1];
+            if (m) {
+               m = m.trim();
+            }
+            var conference = contents_array[c].split(',')[4];
+            if (conference) {
+               conference = conference.trim();
+            }
+            var school = new School();
+            if (s && m) {
+               team_colors = colors[s+' '+m];
+               while (typeof(team_colors) === "string") {
+                  console.log(team_colors);
+                  team_colors = colors[team_colors];
+               }
+               console.log(s+' '+m);
+               console.log(team_colors);
+            }
+            school.school = s;
+            school.mascot = m;
+            school.team_name = s + ' ' + m;
+            school.conference = conference;
+            school.division = "FCS";
+            school.wins = 0;
+            school.primary_color = '#'+team_colors[0];
+            if (team_colors.length > 2) {
+               school.secondary_color = '#'+team_colors[2];
+            } else {
+               school.secondary_color = '#'+team_colors[1];
+            }
+            school.save(function(err) {
+               if (err) {
+                 console.log({success: false, message : "Error for "+s});
+               }
+            });
+         }
+      });
+   });
+
+   router.get('/schools', function(req,res) {
+      School.find({"division": "FBS"}).select('school mascot team_name primary_color secondary_color wins').sort({"school": 1}).exec(function (err, schools) {
+         if (err || !schools) {
+            console.log(err)
+            res.send({success: false, "message" : err.errmsg || "Error"});
+         } else {
+            var schoolsJSON = {};
+            for (let school of schools) {
+               schoolsJSON[school._id] = school;
+            }
+            res.send({success: true, "schools": schools, "schoolsJSON": schoolsJSON});
+         }
+      })
+   });
+
+   router.post('/updateteams', function(req,res) {
+      errors = [];
+      successes = [];
+      for (team in req.body.teams) {
+         var newvalues = { $set: {team0: team.team0, team1: team.team1, team2: team.team2, team3: team.team3, team4: team.team4, team5: team.team5,} };
+         Team.updateOne({'_id': team._id }, newvalues, function (err, result) {
+            if (err) {
+               errors.push(team.name);
+            } else {
+               success.push(team.name);
+            }
+         })
+      }
+      res.send({success: errors.length === 0, "failed": errors});
+   });
+
 
    return router;
 }

@@ -1,0 +1,30 @@
+<p>admin</p>
+<div class="container">
+   <div class="row text-center">
+      <div *ngFor="let team of teams; index as i" [class.d-none]="selected && selected != i+1" class="team-container">
+            <div (click)="select(i+1)" class="team-box">
+               <div  class="team-name">{{users[team.userid].username}}</div>
+               <div class="team-info">
+                  <div class="row w-100" style="margin: auto; padding-top: 2%;">
+                     <div *ngFor="let school of team.schools" class="col-12" style="padding: 0">
+                        <div class="school-box">
+                           <div class="school-text" [style.background-color]="schoolsJSON[school].primary_color" [style.color]="schoolsJSON[school].secondary_color">
+                              <!-- <button class="btn btn-danger" style="float: left; border-radius: 50%;"><strong>-</strong></button> -->
+                              <b>{{schoolsJSON[school].school}}</b>
+                           </div>
+                        </div>
+                     </div>
+
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<div *ngIf="schools" [class.d-none]="!selected" class="container">
+   <div class="row text-center">
+      <div *ngFor="let school of schools" (click)="selectSchool(school)" [class.d-none]="unavailable[school._id]" class="col-6 pick-school" [style.background-color]="school.primary_color" [style.color]="school.secondary_color">
+            <b>{{school.school}}</b>
+      <div>
+   </div>
+</div>

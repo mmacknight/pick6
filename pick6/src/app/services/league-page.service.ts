@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { League } from '../league';
+import { League } from '../models/league';
 import { throwError as observableThrowError, Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from '@environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { catchError, tap } from 'rxjs/operators';
 
 export class LeaguePageService {
 
-   _url = 'http://localhost:8080/api/leaguepage';
+   _url = environment.server+'/api/leaguepage';
 
   constructor(private _http: HttpClient) {
   }

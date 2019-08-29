@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { LeaguePageService } from '../services/league-page.service';
 import { LoginService } from '../services/login.service';
-import { User } from '../user';
-import { League } from '../league';
-import { ActivatedRoute } from '@angular/router';
+import { User } from '../models/user';
+import { League } from '../models/league';
+import { NewUserService } from '../services/new-user.service';
+import { NewLeagueService } from '../services/new-league.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-league',
@@ -12,13 +14,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class LeagueComponent implements OnInit {
 
-   league = new League('','','','',[]);
-   id = 0;
+   league: League;
+   id: String;
    teams = [];
    users = {};
-   currentUser = new User('','','','','','');
+   currentUser: User;
 
-  constructor(private route: ActivatedRoute, private _leaguesPage: LeaguePageService, private _loginService: LoginService) {
+  constructor(private _newLeague: NewLeagueService, private router: Router, private route: ActivatedRoute, private _leaguesPage: LeaguePageService, private _loginService: LoginService) {
+     this.league = _newLeague.newLeague();
      this.id = route.snapshot.paramMap.get('id');
      this._loginService.currentUser.subscribe(x => this.currentUser = x);
      this._leaguesPage.getLeaguePage(this.id).subscribe(
@@ -26,7 +29,7 @@ export class LeagueComponent implements OnInit {
           console.log('Success!', JSON.stringify(data)),
           this.league = data.league,
           this.teams = data.teams,
-          this.users = data.users;
+          this.users = data.users
        },
        error => console.error('Error!', error)
      );
@@ -34,5 +37,9 @@ export class LeagueComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  manage(id) {
+     this.router.navigate(['leagueadmin',id]);
+ }
 
 }

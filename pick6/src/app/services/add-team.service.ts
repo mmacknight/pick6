@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { League } from '../league';
-import { User } from '../user';
+import { League } from '../models/league';
+import { User } from '../models/user';
 import { throwError as observableThrowError, Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { environment } from '@environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AddTeamService {
 
-  _url = 'http://localhost:8080/api/addteam';
+  _url = environment.server+'/api/addteam';
   constructor(private _http: HttpClient) { }
 
   add(username: String, league: League) {

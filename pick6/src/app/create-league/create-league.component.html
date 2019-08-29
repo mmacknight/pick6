@@ -5,6 +5,7 @@
          <label>League Name</label>
          <input  type="text" required #leaguename="ngModel" [class.is-invalid]="leaguename.invalid && leaguename.touched" class="form-control" name="leaguename" [(ngModel)]=league.name>
          <small class="text-danger" [class.d-none]="leaguename.valid || leaguename.untouched">Field is required.</small>
+         <small class="text-danger" [class.d-none]="!invalid">Invalid data entry.</small>
       </div>
 
       <h4>Teams

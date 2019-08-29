@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { League } from '../league';
-import { User } from '../user';
+import { League } from '../models/league';
+import { User } from '../models/user';
 import { CreateLeague } from '../services/league.service'
 import { AddTeamService } from '../services/add-team.service'
 import { LoginService } from '../services/login.service';
+import { NewLeagueService } from '../services/new-league.service';
 
 @Component({
   selector: 'app-create-league',
@@ -12,38 +13,52 @@ import { LoginService } from '../services/login.service';
 })
 
 export class CreateLeagueComponent implements OnInit {
-  league = new League('','','','',[]);
-  currentUser = new User('','','','','','');
+  league: League;
+  currentUser: User;
   form = {};
   n_teams = 0;
   max_teams = 10;
   teams = []
   data = {};
+  invalid = false;
 
-  constructor(private _createLeague: CreateLeague, private _addTeam: AddTeamService, private _loginService: LoginService) {
-     this._loginService.currentUser.subscribe(x => this.currentUser = x);
+  constructor(private _newLeague: NewLeagueService, private _createLeague: CreateLeague, private _addTeam: AddTeamService, private _loginService: LoginService) {
+     this._loginService.currentUser.subscribe(
+        x =>  {
+           this.currentUser = x
+           this.league = _newLeague.newLeague();
+           this.league.admin = x._id;
+        }
+     );
   }
 
   ngOnInit() {
   }
 
   onSubmit(form) {
-     this.league.admin = this.currentUser.username;
-     this.league.numteams = String(this.n_teams);
-     this.league.teams = Object.values(form.value.teams);
-     this.league.teams.push(this.league.admin);
+     if (this.league) {
+        this.league.admin = this.currentUser._id;
+        this.league.teams = Object.values(form.value.teams);
+        this.league.teams.push(this.currentUser.username);
 
-     this._createLeague.create(this.league)
-      .subscribe(
-         data => {
-            this.league._id = String(data.leagueid),
-            console.log(this.league._id),
-            console.log('Success!', JSON.stringify(data)),
-            this.sendTeams(this.league.teams);
-         },
-         error => console.error('Error!', error)
-      );
-
+        this._createLeague.create(this.league)
+         .subscribe(
+            data => {
+               if (data.success) {
+                  this.invalid = false;
+                  this.league._id = String(data.leagueid),
+                  console.log(this.league._id),
+                  console.log('Success!', JSON.stringify(data)),
+                  this.sendTeams(this.league.teams);
+               }
+               else {
+                  console.log('Failure!', JSON.stringify(data)),
+                  this.invalid = true;
+               }
+            },
+            error => console.error('Error!', error)
+         );
+      }
   }
 
   sendTeams(teams) {

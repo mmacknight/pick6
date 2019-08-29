@@ -1,0 +1,121 @@
+.team-container {
+   width: 25%;
+   padding: 0.5%;
+   /* border-style: solid; */
+   border: 5%;
+   /* border-color: black; */
+   border-radius: 2%;
+}
+
+.team-box {
+   width: 100%;
+   padding-top: 90%;
+   padding-bottom: 90%;
+   position: relative;
+}
+
+.team-name {
+   position: absolute;
+   top: 0%;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   font-size: 2vw;
+   color: white;
+   background-color: lightblue;
+   /* border: 2px; */
+   border-radius: 2.5%;
+}
+
+.team-info {
+   position: absolute;
+   width: 100%;
+   top: 20%;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   /* font-size: 2vw;
+   color: orange; */
+   background-color: lightgray;
+   /* border: 2px; */
+   border-radius: 0% 0% 2.5% 2.5%;
+}
+
+
+.school-box {
+   width: 100%;
+
+   /* padding-top: 30%;
+      padding-bottom: 30%; */
+   position: relative;
+   font-size: 1.5vw;
+   border-radius: 2.5%;
+
+
+}
+
+.school-text {
+   width: 100%;
+   text-align: center;
+   padding-top: 5%;
+   padding-bottom: 5%;
+}
+
+.pick-school {
+   padding-top: 5%;
+   padding-bottom: 5%;
+   padding-left: 0%;
+   padding-right: 0%;
+   font-size: 3vw;
+}
+
+/* .list-group{
+    height: 10%;
+    overflow:scroll;
+    -webkit-overflow-scrolling: touch;
+} */
+
+/* .school-name {
+   position: absolute;
+   top: 0%;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   font-size: 2vw;
+   color: white;
+   background-color: lightblue;
+   border: 2px;
+   border-radius: 10px 10px 10px 10px;
+}
+
+.school-info {
+   position: absolute;
+   top: 25%;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   font-size: 2vw;
+   color: orange;
+   background-color: lightgray;
+   border: 2px;
+   border-radius: 0px 0px 10px 10px;
+} */
+
+
+
+@media only screen and (max-width: 600px) {
+  .team-container {
+     width: 50%;
+ }
+ .team-name {
+    font-size: 5vw;
+}
+ .school-box {
+    /* padding-top: 20%;
+    padding-bottom: 20%; */
+    font-size: 3vw;
+}
+.pick-school {
+   font-size: 3vwsvw;
+}
+}

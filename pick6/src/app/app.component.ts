@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { LoginService } from './services/login.service';
 import { RegisterService } from './services/register.service';
-import { User } from './user';
+import { User } from './models/user';
+import { NewUserService } from './services/new-user.service';
 import { Router } from '@angular/router';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +17,7 @@ export class AppComponent {
 
    constructor( private _loginService: LoginService, private _registerService: RegisterService, private router: Router ) {
       this._loginService.currentUser.subscribe(x => this.currentUser = x);
+      console.log(environment.server);
    }
 
    login() {
