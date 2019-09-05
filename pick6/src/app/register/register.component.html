@@ -32,4 +32,5 @@
       </div>
       <button [disabled]="userform.form.invalid" class="btn btn-primary" type="submit">Submit</button>
    </form>
+   <small class="text-danger" [class.d-none]="!failure">Registration Failure</small>
 </div>

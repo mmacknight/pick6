@@ -2,9 +2,31 @@
 <div class="container">
    <div class="row text-center">
       <div *ngFor="let team of teams; index as i"  class="team-container">
-         <div class="team-box">
+         <div class="row" style="margin: auto; padding: 0">
             <div class="team-name">{{users[team.userid].username}}</div>
-            <div class="team-info">{{users[team.userid]._id}}</div>
+            <div class="team-info">
+               <div class="row" style="margin: auto; padding-top: 0;">
+                  <div *ngFor="let school of team.schools" class="school-status" style="padding: 0">
+                     <div class="row" style="margin: auto">
+                        <div class="school-box">
+                           <div class="school-text" [style.background-color]="schoolsJSON[school].primary_color" [style.color]="schoolsJSON[school].secondary_color">
+                              <b>{{schoolsJSON[school].school}}</b>
+                           </div>
+                        </div>
+                        <div class="wins-box">
+                           <div class="wins-text" >
+                              <b>{{schoolsJSON[school].wins}}</b>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="team-wins-box">
+               <div class="team-wins-text">
+                  <b>{{team.wins}}</b>
+               </div>
+            </div>
          </div>
       </div>
    </div>

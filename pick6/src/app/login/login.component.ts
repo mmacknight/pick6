@@ -11,6 +11,7 @@ import { LoginService } from '../services/login.service';
 export class LoginComponent implements OnInit {
    user = {"username": "", "password": ""};
    data = {};
+   failure = false;
 
    constructor(private _loginService: LoginService, private router: Router) {
       console.log(this._loginService.currentUserValue)
@@ -25,7 +26,14 @@ export class LoginComponent implements OnInit {
    onSubmit() {
       this._loginService.login(this.user.username, this.user.password)
        .subscribe(
-          data => console.log('Success!', JSON.stringify(data)),
+          data => {
+             if (data.success) {
+                console.log('Success!', JSON.stringify(data));
+                this.router.navigate(['/']);
+             } else {
+                this.failure = true;
+             }
+         },
           error => console.error('Error!', error)
        )
    }

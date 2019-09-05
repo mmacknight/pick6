@@ -18,14 +18,16 @@ export class DashboardComponent implements OnInit {
   constructor(private router: Router, private _getLeaguesService: GetLeaguesService, private _loginService: LoginService) {
      this._loginService.currentUser.subscribe(
         x =>  {
-           this.currentUser = x,
-           this._getLeaguesService.getLeagues(x._id).subscribe(
-              data => {
-                 console.log('Success!', JSON.stringify(data)),
-                 this.leagues = data.leagues
-              },
-              error => console.error('Error!', error)
-           )
+           if (x) {
+             this.currentUser = x,
+             this._getLeaguesService.getLeagues(x._id).subscribe(
+                data => {
+                   console.log('Success!', JSON.stringify(data)),
+                   this.leagues = data.leagues
+                },
+                error => console.error('Error!', error)
+             )
+          }
         }
      );
   }

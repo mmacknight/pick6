@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { LoginService } from './services/login.service';
 import { RegisterService } from './services/register.service';
 import { User } from './models/user';
-import { NewUserService } from './services/new-user.service';
 import { Router } from '@angular/router';
 import { environment } from '../environments/environment';
 

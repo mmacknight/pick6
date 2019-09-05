@@ -1,16 +1,16 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div class = "container-fluid">
-  <h1 class="text-left" routerLink='/'>
+<div class="row container-fluid" style="margin: auto; padding-top: 1%; background-color: lightgray">
+  <h1 class="text-left col-9" routerLink='/'>
      <strong>CFB Pick6</strong>
   </h1>
-  <small *ngIf="currentUser"> {{currentUser.username}} is logged in </small>
-  <div style="float: right">
-     <div  class="btn-group text-right">
+  <div class="row container-fluid col-3" style="margin: auto; padding: 0;">
+     <div  class="btn-group text-right col-12" style="padding: 0">
         <button *ngIf="currentUser" class="btn btn-danger" (click)="this._loginService.logout()" routerLink='/login'>Log Out</button>
         <button *ngIf="!currentUser" class="btn btn-primary" routerLink='/login'>Login</button>
         <button class="btn btn-primary" routerLink='/register'>Register</button>
-    </div>
+     </div>
+     <small *ngIf="currentUser" style="width: 100%; text-align: right; padding-right: 10%;"> {{currentUser.username}} is logged in </small>
   </div>
-
+</div>
 
 <router-outlet></router-outlet>

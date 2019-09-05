@@ -36,7 +36,7 @@
    right: 0;
    /* font-size: 2vw;
    color: orange; */
-   background-color: lightgray;
+   background-color: lightblue;
    /* border: 2px; */
    border-radius: 0% 0% 2.5% 2.5%;
 }
@@ -62,11 +62,11 @@
 }
 
 .pick-school {
-   padding-top: 5%;
-   padding-bottom: 5%;
+   padding-top: 2%;
+   padding-bottom: 2%;
    padding-left: 0%;
    padding-right: 0%;
-   font-size: 3vw;
+   font-size: 1vw;
 }
 
 /* .list-group{
@@ -116,6 +116,6 @@
     font-size: 3vw;
 }
 .pick-school {
-   font-size: 3vwsvw;
+   font-size: 3vw;
 }
 }

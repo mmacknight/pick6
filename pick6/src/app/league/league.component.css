@@ -1,46 +1,174 @@
 .team-container {
-   width: 25%;
-   padding: 5px;
-   border-style: solid;
-   border: 10px;
-   border-color: black;
-   border-radius: 10%;
+   width: 100%;
+   padding: 0.5%;
+   /* border-style: solid; */
+   border: 5%;
+   /* border-color: black; */
+   border-radius: 0%;
 }
 
-.team-box {
-   width: 100%%;
-   padding: 50%;
+/* .team-box {
+   width: 90%;
+   padding-top: 0%;
+   padding-bottom: 0%;
    position: relative;
-}
+   overflow: hidden;
+} */
 
 .team-name {
+   width: 20%;
+   font-size: 2vw;
+   color: white;
+   background-color: lightblue;
+   padding-top: 1%;
+   padding-bottom: 1%;
+   /* border: 2px; */
+   /* border-radius: 2.5%; */
+}
+
+.team-info {
+   width: 70%;
+   margin: 0;
+   /* font-size: 2vw;
+   color: orange; */
+   background-color: lightblue;
+   /* border: 2px; */
+   /* border-radius: 0% 0% 2.5% 2.5%; */
+}
+
+
+.school-box {
+   width: 80%;
+
+   /* padding-top: 30%;
+      padding-bottom: 30%; */
+   font-size: 1vw;
+   padding-left: 0%;
+   padding-right: 0%;
+
+}
+
+.school-text {
+   width: 100%;
+   text-align: center;
+   padding-top: 3%;
+   padding-bottom: 3%;
+
+}
+
+.pick-school {
+   padding-top: 2%;
+   padding-bottom: 2%;
+   padding-left: 0%;
+   padding-right: 0%;
+   font-size: 1vw;
+}
+
+.wins-box {
+   width: 20%;
+
+   /* padding-top: 30%;
+      padding-bottom: 30%; */
+   font-size: 1vw;
+   border-radius: 2.5%;
+   padding-left: 0%;
+   padding-right: 0%;
+   background-color: lightgray;
+}
+
+.wins-text {
+   text-align: center;
+   padding-top: 10%;
+   padding-bottom: 10%;
+   color: black;
+
+}
+
+.school-status {
+   width: 33.333%;
+}
+
+.team-wins-box {
+   width: 10%;
+
+   /* padding-top: 30%;
+      padding-bottom: 30%; */
+   position: relative;
+   font-size: 2vw;
+   border-style: solid;
+   border-color: lightgray;
+   border-radius: 0% 10% 10% 0%;
+   padding-left: 0%;
+   padding-right: 0%;
+   background-color: white;
+
+}
+
+.team-wins-text {
+   text-align: center;
+   padding-top: 10%;
+   padding-bottom: 10%;
+   color: black;
+
+}
+
+/* .list-group{
+    height: 10%;
+    overflow:scroll;
+    -webkit-overflow-scrolling: touch;
+} */
+
+/* .school-name {
    position: absolute;
    top: 0%;
    left: 0;
    bottom: 0;
    right: 0;
-   font-size: 100%;
+   font-size: 2vw;
    color: white;
    background-color: lightblue;
    border: 2px;
    border-radius: 10px 10px 10px 10px;
 }
 
-.team-info {
+.school-info {
    position: absolute;
    top: 25%;
    left: 0;
    bottom: 0;
    right: 0;
-   font-size: 50%;
+   font-size: 2vw;
    color: orange;
    background-color: lightgray;
    border: 2px;
    border-radius: 0px 0px 10px 10px;
-}
+} */
+
+
 
 @media only screen and (max-width: 600px) {
-  .team-container {
-     width: 100%;
- }
+
+ .team-name {
+    font-size: 3vw;
+}
+
+/* .school-status {
+   width: 50%;
+} */
+ .school-text {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    padding-bottom: 5%;
+    font-size: 1.5vw;
+
+}
+
+ .school-box {
+    /* padding-top: 20%;
+    padding-bottom: 20%; */
+    font-size: 1vw;
+}
+.pick-school {
+   font-size: 3vw;
+}
 }

@@ -19,10 +19,8 @@ module.exports = function(router) {
       if (!req.body.username || !req.body.password || !req.body.email) {
          res.send('Ensure username, email, password were provided');
       } else {
-         console.log(user);
          user.save(function(err) {
             if (err) {
-               console.log(err)
                res.send({success: false, message : err.errmsg || "Error"});
             } else {
                res.send({success: true, message: 'User created successfully!'});
@@ -55,8 +53,6 @@ module.exports = function(router) {
 
 
   router.post('/addteam', function(req,res) {
-     console.log("ADD TEAM");
-     console.log(req.body);
      User.findOne({"username": req.body.username}, "email username", function (err, user) {
          if (err || !user) {
             res.send({success: false, message : "Invalid member"});
@@ -85,17 +81,14 @@ module.exports = function(router) {
   });
 
   router.post('/getleagues', function(req,res) {
-     console.log(req.body);
      Team.find({"userid": req.body._id}, "leagueid", function (err, teams) {
        if (err || !teams) {
           res.send({success: false, message : "Could not get leagues"});
        } else {
-          console.log(teams);
           leagueids = []
           for(var team in teams){
               leagueids.push(teams[team]["leagueid"]);
            }
-           console.log(leagueids);
            League.find({"_id": leagueids}, "name admin", function (err,leagues) {
               if (err || !teams) {
                  res.send({success: false, message : "Could not get leagues"});
@@ -109,7 +102,6 @@ module.exports = function(router) {
   });
 
   router.post('/leaguepage', function(req,res) {
-     console.log(req.body);
      League.findOne({"_id": req.body._id}, "name admin", function (err, league) {
        if (err || !league) {
           res.send({success: false, message : "Could not get league"});
@@ -132,7 +124,6 @@ module.exports = function(router) {
                      for (var user in users) {
                         users_by_id[users[user]["_id"]] = users[user];
                      }
-                     console.log(teams);
                      res.send({success: true, league: league, teams : teams, users: users_by_id});
                    }
                 })
@@ -176,9 +167,6 @@ module.exports = function(router) {
          }
       })
 
-
-      // var query = User.find({"username": username, "password": password_hash});
-      // query.select('_id username password email first last');
    });
 
    router.post('/updateschools', function(req,res) {
@@ -236,7 +224,6 @@ module.exports = function(router) {
       });
 
       fs.readFile('./app/routes/data/fcs.csv', 'utf8', function(err, contents) {
-         // console.log(contents);
          contents_array = contents.split(/[\r\n]+/);
          cfb_schools = [];
          categories = [];
@@ -300,20 +287,34 @@ module.exports = function(router) {
       })
    });
 
-   router.post('/updateteams', function(req,res) {
+   // router.post('/updateteams', function(req,res) {
+   //    errors = [];
+   //    successes = [];
+   //    for (team in req.body.teams) {
+   //       var newvalues = { $set: {team0: team.team0, team1: team.team1, team2: team.team2, team3: team.team3, team4: team.team4, team5: team.team5,} };
+   //       Team.updateOne({'_id': team._id }, newvalues, function (err, result) {
+   //          if (err) {
+   //             errors.push(team.name);
+   //          } else {
+   //             success.push(team.name);
+   //          }
+   //       })
+   //    }
+   //    res.send({success: errors.length === 0, "failed": errors});
+   // });
+
+   router.post('/updateteam', function(req,res) {
       errors = [];
       successes = [];
-      for (team in req.body.teams) {
-         var newvalues = { $set: {team0: team.team0, team1: team.team1, team2: team.team2, team3: team.team3, team4: team.team4, team5: team.team5,} };
-         Team.updateOne({'_id': team._id }, newvalues, function (err, result) {
-            if (err) {
-               errors.push(team.name);
-            } else {
-               success.push(team.name);
-            }
-         })
-      }
-      res.send({success: errors.length === 0, "failed": errors});
+      team = req.body.team;
+      var newvalues = { $set: {school0: team.school0, school1: team.school1, school2: team.school2, school3: team.school3, school4: team.school4, school5: team.school5} };
+      Team.updateOne({'_id': team._id }, newvalues, function (err, result) {
+         if (err) {
+            res.send({success: false, error: err.errmsg || "Error"});
+         } else {
+            res.send({success: true, update: res.nModified});
+         }
+      })
    });
 
 

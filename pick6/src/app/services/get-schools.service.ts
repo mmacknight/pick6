@@ -17,7 +17,7 @@ export class GetSchoolsService {
   }
 
   getSchools() {
-     return this._http.get<sny>(this._url).pipe(catchError(this.errorHandler));
+     return this._http.get<any>(this._url).pipe(catchError(this.errorHandler));
   }
   errorHandler(error: HttpErrorResponse) {
     return observableThrowError(error.message || "Server Error");

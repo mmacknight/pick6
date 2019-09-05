@@ -1,29 +1,40 @@
 <p>admin</p>
-<div class="container">
+<button *ngIf="!addTeam && !selected" (click)="toggleAddTeam()" class="btn btn-primary">Add Team</button>
+<button *ngIf="addTeam" (click)="toggleAddTeam()" class="btn btn-primary">Back</button>
+<form *ngIf="addTeam" (ngSubmit)="onSubmit(user.value)" novalidate>
+   <div class="form-group">
+      <label>Username</label>
+      <input #user type="text" required class="form-control">
+      <small class="text-danger" [class.d-none]="!addFailure">Failed to add user</small>
+      <small class="text-success" [class.d-none]="!addSuccess">Successfully added user</small>
+   </div>
+   <button class="btn btn-primary">Add User</button>
+</form>
+<button (click)="deSelect()" [class.d-none]="!selected" class="btn btn-primary">Back</button>
+<div [class.d-none]="addTeam" class="container">
    <div class="row text-center">
       <div *ngFor="let team of teams; index as i" [class.d-none]="selected && selected != i+1" class="team-container">
-            <div (click)="select(i+1)" class="team-box">
-               <div  class="team-name">{{users[team.userid].username}}</div>
-               <div class="team-info">
-                  <div class="row w-100" style="margin: auto; padding-top: 2%;">
-                     <div *ngFor="let school of team.schools" class="col-12" style="padding: 0">
-                        <div class="school-box">
-                           <div class="school-text" [style.background-color]="schoolsJSON[school].primary_color" [style.color]="schoolsJSON[school].secondary_color">
-                              <!-- <button class="btn btn-danger" style="float: left; border-radius: 50%;"><strong>-</strong></button> -->
-                              <b>{{schoolsJSON[school].school}}</b>
-                           </div>
+         <div (click)="select(i+1)" class="team-box">
+            <div  class="team-name">{{users[team.userid].username}}</div>
+            <div class="team-info">
+               <div class="row w-100" style="margin: auto; padding-top: 0;">
+                  <div *ngFor="let school of team.schools" class="col-12" style="padding: 0">
+                     <div class="school-box">
+                        <div class="school-text" (click)="removeSchool(schoolsJSON[school]._id,i)"[style.background-color]="schoolsJSON[school].primary_color" [style.color]="schoolsJSON[school].secondary_color">
+                           <!-- <button class="align-middle btn btn-danger" style="float: left; border-radius: 10%; padding-top: 0; padding-bottom: 0; padding-left: 5%; padding-right: 5%; margin: auto;"><strong>-</strong></button> -->
+                           <b>{{schoolsJSON[school].school}}</b>
                         </div>
                      </div>
-
+                  </div>
                </div>
             </div>
          </div>
       </div>
    </div>
 </div>
-<div *ngIf="schools" [class.d-none]="!selected" class="container">
+<div *ngIf="schools" [class.d-none]="!selected || teams[selected-1].schools.length > 5" class="container">
    <div class="row text-center">
-      <div *ngFor="let school of schools" (click)="selectSchool(school)" [class.d-none]="unavailable[school._id]" class="col-6 pick-school" [style.background-color]="school.primary_color" [style.color]="school.secondary_color">
+      <div *ngFor="let school of schools" (click)="selectSchool(school)" [class.d-none]="unavailable[school._id]" class="col-3 pick-school" [style.background-color]="school.primary_color" [style.color]="school.secondary_color">
             <b>{{school.school}}</b>
       <div>
    </div>
