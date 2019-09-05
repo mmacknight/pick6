@@ -27,7 +27,14 @@ var allowCrossDomain = function(req, res, next) {
 
 
 
+var csp = require('helmet-csp');
 
+// app.use(csp({
+//   directives: {
+//     defaultSrc: [`'self'`],
+//     imgSrc: [`'self'`, `imgur.com`]
+//   }
+// }))
 
 app.use(allowCrossDomain);
 app.use(morgan('dev'));
@@ -36,10 +43,11 @@ app.use(cors({
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
-app.use(express.static(__dirname + '/public'));
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use("/",express.static(path.join(__dirname, '../pick6/dist/pick6')));
 
 app.use('/api',appRoutes);
+
+
 
 mongoose.connect('mongodb+srv://'+process.env.DB_USER+':'+process.env.DB_PASS+'@cluster0-bbt59.mongodb.net/test?retryWrites=true&w=majority', function(err,db) {
    if (err) {
@@ -56,6 +64,14 @@ app.listen(port, function(req,res) {
    console.log('Running server on port ' + port);
 });
 
+// app.get('*', function(req,res) {
+//    console.log(path.join(__dirname, '../pick6/dist/pick6/index.html'));
+//    var fs = require('fs');
+//    fs.readFile(path.join(__dirname, '../pick6/dist/pick6/index.html'), 'utf8', function(err, contents) {
+//       console.log(contents);
+//    });
+//    return res.sendFile(path.join(__dirname, '../pick6/dist/pick6/index.html'));
+// });
 
 
 var minutes = 5, interval = minutes * 60 * 1000;
