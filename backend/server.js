@@ -1,7 +1,7 @@
 var express = require('express');
 var env = require('custom-env').env();
 var app = express();
-var port = process.env.PORT || 8080
+var port = process.env.PORT || 3000;
 var morgan = require('morgan');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
@@ -43,7 +43,7 @@ app.use(cors({
 }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
-app.use("/",express.static(path.join(__dirname, '../pick6/dist/pick6')));
+app.use(express.static(path.join(__dirname, '../pick6/dist/pick6')));
 
 app.use('/api',appRoutes);
 
@@ -64,14 +64,14 @@ app.listen(port, function(req,res) {
    console.log('Running server on port ' + port);
 });
 
-// app.get('*', function(req,res) {
-//    console.log(path.join(__dirname, '../pick6/dist/pick6/index.html'));
-//    var fs = require('fs');
-//    fs.readFile(path.join(__dirname, '../pick6/dist/pick6/index.html'), 'utf8', function(err, contents) {
-//       console.log(contents);
-//    });
-//    return res.sendFile(path.join(__dirname, '../pick6/dist/pick6/index.html'));
-// });
+app.get('*', function(req,res) {
+   console.log(path.join(__dirname, '../pick6/dist/pick6/index.html'));
+   // var fs = require('fs');
+   // fs.readFile(path.join(__dirname, '../pick6/dist/pick6/index.html'), 'utf8', function(err, contents) {
+   //    console.log(contents);
+   // });
+   return res.sendFile(path.join(__dirname, '../pick6/dist/pick6/index.html'));
+});
 
 
 var minutes = 5, interval = minutes * 60 * 1000;
