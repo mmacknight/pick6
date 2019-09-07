@@ -1,6 +1,3 @@
-<div class="container" style="padding: 0">
-   <button *ngIf="this.currentUser._id == this.league.admin" (click)="manage(this.id)" class="btn btn-primary">Manage League</button>
-</div>
 <div class="container">
    <div class="row text-center">
       <div *ngFor="let team of teams; index as i"  class="team-container">
@@ -12,19 +9,21 @@
                   </div>
                <!-- </div> -->
             </div>
-            <div class="team-name">{{users[team.userid].username}}</div>
-            <div class="team-info">
-               <div class="row" style="margin: auto; padding-top: 0;">
-                  <div *ngFor="let school of team.schools" class="school-status" style="padding: 0">
-                     <div class="row" style="margin: auto">
-                        <div class="school-box">
-                           <div class="school-text" [style.background-color]="schoolsJSON[school].primary_color" [style.color]="schoolsJSON[school].secondary_color">
-                              <b>{{schoolsJSON[school].school}}</b>
+            <div class="row" style="margin: 0; padding: 0; width: 80%">
+               <div class="team-name">{{users[team.userid].username}}</div>
+               <div class="team-info">
+                  <div class="row" style="margin: 0; padding-top: 0;">
+                     <div *ngFor="let school of team.schools" class="school-status" style="margin: auto; padding: 0">
+                        <div class="row" style="margin: 0; padding: 0;">
+                           <div class="school-box">
+                              <div class="school-text" [style.background-color]="schoolsJSON[school].primary_color" [style.color]="schoolsJSON[school].secondary_color">
+                                 <b>{{schoolsJSON[school].school}}</b>
+                              </div>
                            </div>
-                        </div>
-                        <div class="wins-box">
-                           <div class="wins-text" >
-                              <b>{{schoolsJSON[school].wins}}</b>
+                           <div class="wins-box">
+                              <div class="wins-text" >
+                                 <b>{{schoolsJSON[school].wins}}</b>
+                              </div>
                            </div>
                         </div>
                      </div>
@@ -39,4 +38,7 @@
          </div>
       </div>
    </div>
+</div>
+<div class="container text-center" style="padding: 2%">
+   <button *ngIf="this.currentUser._id == this.league.admin" (click)="manage(this.id)" class="btn btn-primary">Manage League</button>
 </div>

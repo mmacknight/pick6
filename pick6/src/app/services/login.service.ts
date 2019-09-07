@@ -26,13 +26,12 @@ export class LoginService {
     login(username: string, password: string) {
         return this.http.post<any>(this._url, { username, password })
             .pipe(map(data => {
-               console.log(data.success)
                if (data.success) {
                   data.user.authdata = window.btoa(username + ':' + password);
                   localStorage.setItem('currentUser', JSON.stringify(data.user));
                   this.currentUserSubject.next(data.user);
-                  return data;
-               }
+               };
+               return data;
             }));
     }
 

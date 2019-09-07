@@ -178,18 +178,17 @@ module.exports = function(router) {
 
       User.findOne({"username": username }).select('email username password first last').exec(function (err, user) {
          if (err || !user) {
-            console.log(err)
-            res.send({succes: false, "message" : err.errmsg || "Error"});
+            res.send({succes: false, message : "Could not login"});
          } else {
              if (req.body.password) {
                 var validPassword = user.comparePassword(req.body.password);
+                if (!validPassword) {
+                   res.send({success: false, message:'Invalid Password'});
+                } else {
+                   res.send({success: true, message: 'User Authenticated', user});
+                }
              } else {
                 res.send({success: false, message:'No password'});
-             }
-             if (!validPassword) {
-                res.send({success: false, message:'Invalid Password'});
-             } else {
-                res.send({success: true, message: 'User Authenticated', user});
              }
          }
       })

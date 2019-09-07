@@ -27,12 +27,11 @@ export class LoginComponent implements OnInit {
       this._loginService.login(this.user.username, this.user.password)
        .subscribe(
           data => {
+             console.log(data);
              if (data.success) {
-                console.log("HERE GOOD");
                 console.log('Success!', JSON.stringify(data));
                 this.router.navigate(['/']);
              } else {
-                console.log("HERE BAD");
                 this.failure = true;
              }
          },
