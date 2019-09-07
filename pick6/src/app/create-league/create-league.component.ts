@@ -4,6 +4,7 @@ import { User } from '../models/user';
 import { CreateLeague } from '../services/league.service'
 import { AddTeamService } from '../services/add-team.service'
 import { LoginService } from '../services/login.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create-league',
@@ -21,7 +22,10 @@ export class CreateLeagueComponent implements OnInit {
   data = {};
   invalid = false;
 
-  constructor(private _createLeague: CreateLeague, private _addTeam: AddTeamService, private _loginService: LoginService) {
+  constructor(private _createLeague: CreateLeague, private _addTeam: AddTeamService, private _loginService: LoginService, private router: Router) {
+     if (!this._loginService.currentUserValue) {
+         this.router.navigate(['/login']);
+     };
      this._loginService.currentUser.subscribe(
         x =>  {
            this.currentUser = x

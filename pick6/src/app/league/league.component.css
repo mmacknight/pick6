@@ -16,7 +16,7 @@
 } */
 
 .team-name {
-   width: 20%;
+   width: 15%;
    font-size: 2vw;
    color: white;
    background-color: lightblue;
@@ -108,6 +108,28 @@
    text-align: center;
    padding-top: 10%;
    padding-bottom: 10%;
+   color: black;
+
+}
+
+.rank-box {
+   width: 5%;
+   /* padding-top: 30%;
+      padding-bottom: 30%; */
+   position: relative;
+   font-size: 2.5vw;
+   /* border-style: solid; */
+   /* border-color: lightgray; */
+   border-radius: 10% 0% 0% 10%;
+   padding-left: 0%;
+   padding-right: 0%;
+   /* background-color: white; */
+}
+
+.rank-text {
+   text-align: center;
+   /* padding-top: 10%;
+   padding-bottom: 10%; */
    color: black;
 
 }

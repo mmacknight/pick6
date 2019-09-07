@@ -1,10 +1,9 @@
-<button routerLink='/createleague' class='btn btn-primary'>Create League</button>
 <div class="container">
    <div class="row text-center">
       <div *ngFor="let league of leagues; index as i"  class="league-container">
          <div (click)="onSelect(league._id)" class="league-box">
             <div class="league-name">{{league.name}}</div>
-            <div class="league-info">{{league._id}}</div>
+            <div class="league-info"></div>
          </div>
       </div>
    </div>

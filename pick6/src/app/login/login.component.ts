@@ -28,9 +28,11 @@ export class LoginComponent implements OnInit {
        .subscribe(
           data => {
              if (data.success) {
+                console.log("HERE GOOD");
                 console.log('Success!', JSON.stringify(data));
                 this.router.navigate(['/']);
              } else {
+                console.log("HERE BAD");
                 this.failure = true;
              }
          },

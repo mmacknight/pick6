@@ -31,7 +31,7 @@ export class LoginService {
                   data.user.authdata = window.btoa(username + ':' + password);
                   localStorage.setItem('currentUser', JSON.stringify(data.user));
                   this.currentUserSubject.next(data.user);
-                  return data.user;
+                  return data;
                }
             }));
     }

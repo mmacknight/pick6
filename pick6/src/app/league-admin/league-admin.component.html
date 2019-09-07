@@ -1,15 +1,16 @@
-<p>admin</p>
-<button *ngIf="!addTeam && !selected" (click)="toggleAddTeam()" class="btn btn-primary">Add Team</button>
-<button *ngIf="addTeam" (click)="toggleAddTeam()" class="btn btn-primary">Back</button>
-<form *ngIf="addTeam" (ngSubmit)="onSubmit(user.value)" novalidate>
-   <div class="form-group">
-      <label>Username</label>
-      <input #user type="text" required class="form-control">
-      <small class="text-danger" [class.d-none]="!addFailure">Failed to add user</small>
-      <small class="text-success" [class.d-none]="!addSuccess">Successfully added user</small>
-   </div>
-   <button class="btn btn-primary">Add User</button>
-</form>
+<div class="container" style="padding: 0">
+   <button *ngIf="!addTeam && !selected" (click)="toggleAddTeam()" class="btn btn-primary">Add Team</button>
+   <button *ngIf="addTeam" (click)="toggleAddTeam()" class="btn btn-primary">Back</button>
+   <form *ngIf="addTeam" (ngSubmit)="onSubmit(user.value)" novalidate>
+      <div class="form-group">
+         <label>Username</label>
+         <input #user type="text" required class="form-control">
+         <small class="text-danger" [class.d-none]="!addFailure">Failed to add user</small>
+         <small class="text-success" [class.d-none]="!addSuccess">Successfully added user</small>
+      </div>
+      <button class="btn btn-primary">Add User</button>
+   </form>
+</div>
 <button (click)="deSelect()" [class.d-none]="!selected" class="btn btn-primary">Back</button>
 <div [class.d-none]="addTeam" class="container">
    <div class="row text-center">

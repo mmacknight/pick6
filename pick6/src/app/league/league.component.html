@@ -1,8 +1,17 @@
-<button *ngIf="this.currentUser._id == this.league.admin" (click)="manage(this.id)" class="btn btn-primary">Manage League</button>
+<div class="container" style="padding: 0">
+   <button *ngIf="this.currentUser._id == this.league.admin" (click)="manage(this.id)" class="btn btn-primary">Manage League</button>
+</div>
 <div class="container">
    <div class="row text-center">
       <div *ngFor="let team of teams; index as i"  class="team-container">
          <div class="row" style="margin: auto; padding: 0">
+            <div class="rank-box my-auto">
+               <!-- <div class="my-auto"> -->
+                  <div class="rank-text">
+                     <b>{{i+1}}</b>
+                  </div>
+               <!-- </div> -->
+            </div>
             <div class="team-name">{{users[team.userid].username}}</div>
             <div class="team-info">
                <div class="row" style="margin: auto; padding-top: 0;">

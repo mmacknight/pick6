@@ -4,7 +4,7 @@ var League = require('../models/league');
 var path = require('path');
 var Team = require('../models/team');
 var bcrypt = require('bcrypt-nodejs');
-
+var ObjectID = require('mongodb').ObjectID;
 
 
 module.exports = function(router) {
@@ -27,6 +27,33 @@ module.exports = function(router) {
             }
          });
       }
+   });
+
+   router.post('/update',function(req,res) {
+      console.log(req.body);
+      res.send({success: true, message: 'User created successfully!'});
+      updates = {};
+      for (const [key, value] of Object.entries(req.body)) {
+         if (key != "authdata" || key != "_id" ) {
+            updates[key] = value;
+         }
+      }
+      console.log(updates);
+      var newvalues = { $set: { updates } };
+      console.log(ObjectID(req.body._id));
+      User.findOne({"_id": req.body._id}).select('username').exec(function(err,user) {
+         console.log(user);
+      });
+      User.updateMany({"username": req.body.username}, newvalues, function(err,result) {
+         console.log("HEEEEEEEEEEEEEREREREREREREEEEEEE");
+         if (err) {
+            console.log(err);
+            res.send({success: false, error: err.errmsg || "Error Updating"})
+         } else {
+            console.log(result);
+         }
+      });
+
    });
 
    router.post('/createleague',function(req,res) {
@@ -152,7 +179,7 @@ module.exports = function(router) {
       User.findOne({"username": username }).select('email username password first last').exec(function (err, user) {
          if (err || !user) {
             console.log(err)
-            res.send({"message" : err.errmsg || "Error"});
+            res.send({succes: false, "message" : err.errmsg || "Error"});
          } else {
              if (req.body.password) {
                 var validPassword = user.comparePassword(req.body.password);
