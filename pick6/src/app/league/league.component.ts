@@ -33,6 +33,9 @@ export class LeagueComponent implements OnInit {
    addTeam = false;
 
   constructor(private _updateTeam: UpdateTeamService, private _addTeam: AddTeamService, private _getSchools: GetSchoolsService, private router: Router, private route: ActivatedRoute, private _leaguesPage: LeaguePageService, private _loginService: LoginService) {
+     if (!this._loginService.currentUserValue) {
+         this.router.navigate(['/login']);
+     };
      this.league = new League();
      // this.league = _newLeague.newLeague();
      this.id = route.snapshot.paramMap.get('id');

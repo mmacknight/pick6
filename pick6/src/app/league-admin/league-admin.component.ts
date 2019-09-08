@@ -34,6 +34,9 @@ export class LeagueAdminComponent implements OnInit {
       addTeam = false;
 
      constructor(private _updateTeam: UpdateTeamService, private _addTeam: AddTeamService, private _getSchools: GetSchoolsService, private router: Router, private route: ActivatedRoute, private _leaguesPage: LeaguePageService, private _loginService: LoginService) {
+        if (!this._loginService.currentUserValue) {
+            this.router.navigate(['/login']);
+        };
         this.league = new League();
         this.id = route.snapshot.paramMap.get('id');
         this._loginService.currentUser.subscribe(
