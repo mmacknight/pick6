@@ -38,6 +38,7 @@ export class AccountComponent implements OnInit {
           data => {
             if (data.success) {
                console.log('Success!', JSON.stringify(data));
+               this._loginService.updateUser(data.user);
                this.router.navigate(['/']);
             } else {
                this.failure = true;

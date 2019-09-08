@@ -22,18 +22,23 @@ UserSchema.pre('save', function(next) {
 
 UserSchema.methods.comparePassword = function(password) {
    return bcrypt.compareSync(password, this.password);
-}
+};
 
-UserSchema.pre('updateOne', function(next) {
-   if (this.password) {
+UserSchema.pre('update', function(next) {
+   var update = this._update;
+   if (update.$set.password) {
       var user = this;
-      bcrypt.hash(user.password, null, null, function(err,hash) {
+      bcrypt.hash(update.$set.password, null, null, function(err,hash) {
          if (err) return next(err);
-         user.password = hash
+         update.$set.password = hash
          next();
       });
+   } else {
+      next();
    }
+
 });
+
 
 UserSchema.methods.comparePassword = function(password) {
    return bcrypt.compareSync(password, this.password);

@@ -35,6 +35,12 @@ export class LoginService {
             }));
     }
 
+    updateUser(user) {
+      user.authdata = window.btoa(user.username + ':' + user.password);
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      this.currentUserSubject.next(user);
+   }
+
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');

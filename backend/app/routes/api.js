@@ -30,27 +30,26 @@ module.exports = function(router) {
    });
 
    router.post('/update',function(req,res) {
-      console.log(req.body);
-      res.send({success: true, message: 'User created successfully!'});
       updates = {};
       for (const [key, value] of Object.entries(req.body)) {
-         if (key != "authdata" || key != "_id" ) {
+         if (key != "authdata" && key != "_id" && !(key == "password" && !value)) {
             updates[key] = value;
          }
       }
-      console.log(updates);
-      var newvalues = { $set: { updates } };
-      console.log(ObjectID(req.body._id));
-      User.findOne({"_id": req.body._id}).select('username').exec(function(err,user) {
-         console.log(user);
-      });
-      User.updateMany({"username": req.body.username}, newvalues, function(err,result) {
-         console.log("HEEEEEEEEEEEEEREREREREREREEEEEEE");
+      var newvalues = { $set: updates };
+      User.update({"_id": req.body._id}, newvalues, function(err,result) {
          if (err) {
             console.log(err);
             res.send({success: false, error: err.errmsg || "Error Updating"})
          } else {
             console.log(result);
+            User.findOne({"_id": req.body._id}).select('username password first last email').exec(function(err,user) {
+               if (err) {
+                  res.send({success: false, error: err.errmsg || "Error Updating"});
+               } else {
+                  res.send({success: true, user: user});
+               }
+            });
          }
       });
 
