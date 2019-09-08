@@ -1,10 +1,8 @@
 <div class="container">
    <div class="row text-center">
-      <div *ngFor="let league of leagues; index as i"  class="league-container">
-         <div (click)="onSelect(league._id)" class="league-box">
-            <div class="league-name">{{league.name}}</div>
-            <div class="league-info"></div>
-         </div>
+      <div *ngFor="let league of leagues; index as i" class="container league-container" style="margin: 0; padding 0">
+         <app-league-tile [inp]="[league._id, league.name, currentUser._id]" (click)="onSelect(league._id)" class="league-box">
+         </app-league-tile>
       </div>
    </div>
 </div>

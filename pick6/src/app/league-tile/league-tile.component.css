@@ -1,0 +1,135 @@
+.league-box {
+   width: 100%%;
+   padding: 50%;
+   position: relative; /* If you want text inside of it */
+}
+
+.league-name {
+   position: absolute;
+   top: 0%;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   font-size: 3vw;
+   color: white;
+   background-color: black;
+   border: 2px;
+   border-radius: 10px 10px 10px 10px;
+   padding-top: 3%;
+   padding-bottom: 3%;
+}
+
+.league-info {
+   position: absolute;
+   top: 20%;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   font-size: 200%;
+   color: orange;
+   background-color: lightgray;
+   border: 2px;
+   border-radius: 0px 0px 10px 10px;
+}
+
+.school-box {
+   width: 80%;
+
+   /* padding-top: 30%;
+      padding-bottom: 30%; */
+   font-size: 1.5vw;
+   padding-left: 0%;
+   padding-right: 0%;
+
+}
+
+.school-text {
+   width: 100%;
+   text-align: center;
+   padding-top: 4%;
+   padding-bottom: 4%;
+
+}
+
+.school-status {
+   width: 100%;
+}
+
+.wins-box {
+   width: 20%;
+
+   /* padding-top: 30%;
+      padding-bottom: 30%; */
+   border-left-style: solid;
+   border-color: black;
+
+   padding-left: 0%;
+   padding-right: 0%;
+   background-color: lightgray;
+}
+
+.wins-text {
+   text-align: center;
+   padding-top: 10%;
+   padding-bottom: 10%;
+   color: black;
+   font-size: 2vw;
+
+}
+
+
+@media only screen and (max-width: 600px) {
+  .league-container {
+     width: 100%;
+ }
+
+ .league-name {
+    font-size: 6vw;
+}
+
+.team-name {
+   font-size: 3vw;
+   width: 100%;
+   padding-top: 0.5%;
+   padding-bottom: 0.5%;
+}
+
+/* .school-status {
+  width: 50%;
+} */
+  .team-info {
+     width: 100%;
+  }
+
+.school-text {
+   padding-top: 4%;
+   padding-bottom: 4%;
+   font-size: 4vw;
+
+}
+
+
+
+  /* .school-text {
+      padding-top: 20%;
+      padding-bottom: 20%;
+      width: 60%;
+      font-size: 4vw;
+  } */
+
+
+  .wins-text {
+     padding-top: 10%;
+     padding-bottom: 10%;
+     font-size: 5vw;
+  }
+
+  .team-wins-box {
+     padding-top: 8%;
+     padding-bottom: 8%;
+  }
+
+  .team-wins-text {
+     font-size: 5vw;
+  }
+}

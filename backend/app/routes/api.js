@@ -161,20 +161,39 @@ module.exports = function(router) {
 
   });
 
-   router.get('/users', function(req,res) {
-      User.find({"username": ["mmacknig"]}, 'email username password first last', function (err, users) {
-        if (err) {
-           res.send("Error");
-        } else {
-           res.send(users);
-        }
-     });
+   // router.get('/users', function(req,res) {
+   //    User.find({"username": ["mmacknig"]}, 'email username password first last', function (err, users) {
+   //      if (err) {
+   //         res.send("Error");
+   //      } else {
+   //         res.send(users);
+   //      }
+   //   });
+   //
+   // });
+
+   router.post('/team', function(req,res) {
+      if (!req.body.user_id || !req.body.league_id) {
+         res.send({success: false, error: "Insufficient Credentials"});
+      } else {
+         user_id = req.body.user_id;
+         league_id = req.body.league_id;
+         console.log("USER", user_id)
+         Team.findOne({"userid": user_id, "leagueid": league_id}).select("userid leagueid school0 school1 school2 school3 school4 school5").exec(function (err, team) {
+            if (err) {
+               res.send({success: false, error: err.errmsg || "Error"});
+            } else {
+               console.log(team);
+               res.send({success: true, team: team});
+            }
+         });
+      }
 
    });
 
    router.post('/login', function(req,res) {
-      username = req.body.username
-      password = req.body.password
+      username = req.body.username;
+      password = req.body.password;
 
       User.findOne({"username": username }).select('email username password first last').exec(function (err, user) {
          if (err || !user) {

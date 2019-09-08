@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
              this.currentUser = x,
              this._getLeaguesService.getLeagues(x._id).subscribe(
                 data => {
+                   console.log(data),
                    console.log('Success!', JSON.stringify(data)),
                    this.leagues = data.leagues
                 },
