@@ -178,7 +178,6 @@ module.exports = function(router) {
       } else {
          user_id = req.body.user_id;
          league_id = req.body.league_id;
-         console.log("USER", user_id)
          Team.findOne({"userid": user_id, "leagueid": league_id}).select("userid leagueid school0 school1 school2 school3 school4 school5").exec(function (err, team) {
             if (err) {
                res.send({success: false, error: err.errmsg || "Error"});
