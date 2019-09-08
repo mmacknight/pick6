@@ -1,8 +1,8 @@
-<div class="league-box">
+<!-- <div class="league-box"> -->
    <div class="league-name">{{league_name}}</div>
    <div class="league-info">
       <div *ngFor="let school of schools" class="school-status" style="margin: auto; padding: 0">
-         <div class="row" style="margin: 0; padding: 0;">
+         <div class="row" style="margin: auto; padding: 0;">
             <div class="school-box">
                <div class="school-text" [style.background-color]="schoolsJSON[school].primary_color" [style.color]="schoolsJSON[school].secondary_color">
                   <b>{{schoolsJSON[school].school}}</b>
@@ -16,4 +16,4 @@
          </div>
       </div>
    </div>
-</div>
+<!-- </div> -->

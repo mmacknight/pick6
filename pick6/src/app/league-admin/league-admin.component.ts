@@ -32,6 +32,7 @@ export class LeagueAdminComponent implements OnInit {
       addFailure = false;
       addSuccess = false;
       addTeam = false;
+      // removeTeam = false;
 
      constructor(private _updateTeam: UpdateTeamService, private _addTeam: AddTeamService, private _getSchools: GetSchoolsService, private router: Router, private route: ActivatedRoute, private _leaguesPage: LeaguePageService, private _loginService: LoginService) {
         if (!this._loginService.currentUserValue) {
@@ -137,6 +138,25 @@ export class LeagueAdminComponent implements OnInit {
         this.addTeam = !this.addTeam;
      }
 
+     // toggleRemoveTeam() {
+     //    this.removeTeam = !this.removeTeam;
+     // }
+
+     // removeTeam() {
+     //    console.log(user);
+     //    this._addTeam.add(user, this.league)
+     //    .subscribe(
+     //       data => {
+     //         if (data.success) {
+     //            console.log('Success!', JSON.stringify(data));
+     //            this.addSuccess = true;
+     //         } else {
+     //            this.addFailure = true;
+     //         }
+     //       },
+     //       error => console.error('Error!', error)
+     //    )
+     // }
    //   setMyStyles(school) {
    //      let styles = {
    //        'background-color': school.primary_color ? school.primary_color: 'black',

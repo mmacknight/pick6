@@ -1,8 +1,8 @@
-.league-box {
+/* .league-box {
    width: 100%%;
    padding: 50%;
-   position: relative; /* If you want text inside of it */
-}
+   position: relative;
+} */
 
 .league-name {
    position: absolute;
