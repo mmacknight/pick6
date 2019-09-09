@@ -17,7 +17,7 @@ export class CreateLeagueComponent implements OnInit {
   currentUser: User;
   form = {};
   n_teams = 0;
-  max_teams = 10;
+  max_teams = 30;
   teams = []
   data = {};
   invalid = false;
