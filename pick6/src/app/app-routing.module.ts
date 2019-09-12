@@ -7,12 +7,14 @@ import { CreateLeagueComponent } from './create-league/create-league.component';
 import { LeagueComponent } from './league/league.component';
 import { LeagueAdminComponent } from './league-admin/league-admin.component';
 import { AccountComponent } from './account/account.component';
+import { AboutComponent } from './about/about.component';
 
 const routes: Routes = [
-   { path: '', component: DashboardComponent},
+   { path: '', component: AboutComponent},
    { path: 'register', component: RegisterComponent},
    { path: 'login', component: LoginComponent},
    { path: 'account', component: AccountComponent},
+   { path: 'myleagues', component: DashboardComponent},
    { path: 'createleague', component: CreateLeagueComponent},
    { path: 'league/:id', component: LeagueComponent},
    { path: 'leagueadmin/:id', component: LeagueAdminComponent}
@@ -31,5 +33,6 @@ export const routingComponents = [
    CreateLeagueComponent,
    LeagueComponent,
    LeagueAdminComponent,
-   AccountComponent
+   AccountComponent,
+   AboutComponent
 ]

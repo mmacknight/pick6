@@ -1,16 +1,16 @@
-<div class="container">
+<div class="container" style="margin: auto; width: 90%; max-width: 100%;" (window:resize)="getWidth()">
    <div class="row text-center">
       <div *ngFor="let team of teams; index as i"  class="team-container">
          <div class="row" style="margin: auto; padding: 0">
-            <div class="rank-box my-auto">
+            <div class="rank-box">
                <!-- <div class="my-auto"> -->
                   <div class="rank-text">
                      <b>{{i+1}}</b>
                   </div>
                <!-- </div> -->
             </div>
-            <div class="row" style="margin: 0; padding: 0; width: 80%">
-               <div class="team-name">{{users[team.userid].username}}</div>
+            <div class="row" style="margin: 0; padding: 0; width: 85%">
+               <div class="team-name">{{users[team.userid].username.length  <= 10 || width <= 600 ? users[team.userid].username : users[team.userid].first[0]+users[team.userid].last[0] | uppercase}}</div>
                <div class="team-info">
                   <div class="row" style="margin: 0; padding-top: 0;">
                      <div *ngFor="let school of team.schools" class="school-status" style="margin: auto; padding: 0;">
@@ -39,6 +39,6 @@
       </div>
    </div>
 </div>
-<div class="container text-center" style="padding: 2%">
+<div class="container-fluid text-center" style="padding: 2%">
    <button *ngIf="this.currentUser._id == this.league.admin" (click)="manage(this.id)" class="btn btn-primary">Manage League</button>
 </div>

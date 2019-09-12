@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WindowRefService } from '../services/window-ref.service';
 import { LeaguePageService } from '../services/league-page.service';
 import { LoginService } from '../services/login.service';
 import { User } from '../models/user';
@@ -31,8 +32,10 @@ export class LeagueComponent implements OnInit {
    addFailure = false;
    addSuccess = false;
    addTeam = false;
+   width = 0;
 
-  constructor(private _updateTeam: UpdateTeamService, private _addTeam: AddTeamService, private _getSchools: GetSchoolsService, private router: Router, private route: ActivatedRoute, private _leaguesPage: LeaguePageService, private _loginService: LoginService) {
+  constructor( private winRef: WindowRefService, private _updateTeam: UpdateTeamService, private _addTeam: AddTeamService, private _getSchools: GetSchoolsService, private router: Router, private route: ActivatedRoute, private _leaguesPage: LeaguePageService, private _loginService: LoginService) {
+     this.width = winRef.nativeWindow.innerWidth;
      if (!this._loginService.currentUserValue) {
          this.router.navigate(['/login']);
      };
@@ -84,12 +87,19 @@ export class LeagueComponent implements OnInit {
 
    }
 
+   getWidth() {
+      this.width = this.winRef.nativeWindow.innerWidth;
+      return(this.winRef.nativeWindow.innerWidth);
+   }
+
    manage(id) {
       this.router.navigate(['/leagueadmin',id]);
    }
 
   ngOnInit() {
   }
+
+
 
 
 }

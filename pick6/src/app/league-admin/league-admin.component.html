@@ -1,19 +1,33 @@
-<div class="container" style="padding: 0">
-   <button *ngIf="!addTeam && !selected" (click)="toggleAddTeam()" class="btn btn-primary">Add Team</button>
-   <button *ngIf="addTeam" (click)="toggleAddTeam()" class="btn btn-primary">Back</button>
-   <form *ngIf="addTeam" (ngSubmit)="onSubmit(user.value)" novalidate>
-      <div class="form-group">
-         <label>Username</label>
-         <input #user type="text" required class="form-control">
-         <small class="text-danger" [class.d-none]="!addFailure">Failed to add user</small>
-         <small class="text-success" [class.d-none]="!addSuccess">Successfully added user</small>
+<div class="text-center" style="width: 100%; margin: 0; padding: 5%; padding-top: 0">
+   <button *ngIf="!settings && !selected" (click)="goToLeague()"  class="btn btn-primary" style="margin: 2%">League Home</button>
+   <button *ngIf="!settings && !selected" (click)="toggleSettings()"  class="btn btn-primary" style="margin: 2%">Settings</button>
+   <div class="rounded text-left" [class.d-none]="!settings" style="width: 100%; padding: 2%; background-color: white">
+      <button (click)="toggleSettings()" class="btn btn-primary" style="margin-bottom: 5%">Back</button>
+      <form (ngSubmit)="onSubmit(user.value)" style="margin-bottom: 10%" novalidate>
+         <div class="form-group">
+            <label>Username</label>
+            <input #user type="text" required class="form-control">
+            <small class="text-danger" [class.d-none]="!addFailure">Failed to add user</small>
+            <small class="text-success" [class.d-none]="!addSuccess">Successfully added user</small>
+         </div>
+         <button class="btn btn-primary">Add User</button>
+      </form>
+      <div *ngFor="let team of teams; index as i" class="row" style="margin: 1.5%;">
+         <button [disabled]="i === 0"(click)="deleteTeam(team._id)" class="btn btn-danger text-center deleteUserButton">remove</button>
+         <div class="rounded text-center deleteUser" ><b>{{users[team.userid].username}}</b></div>
       </div>
-      <button class="btn btn-primary">Add User</button>
-   </form>
-</div>
-<button (click)="deSelect()" [class.d-none]="!selected" class="btn btn-primary">Back</button>
-<div [class.d-none]="addTeam" class="container">
-   <div class="row text-center">
+      <form #deleteform="ngForm" (ngSubmit)="deleteLeague()" style="margin-top: 5%" novalidate>
+         <div class="form-group" style="width: 100%">
+            <label class="deleteLabel">Type "delete" and press button to delete league</label>
+            <div class="row" style="margin: 0; padding: 0">
+               <input type="text" required #confirm="ngModel" class="form-control" style="width: 25%;" name="confirm" ngModel>
+               <button [disabled]="confirm.value != 'delete'" class="btn btn-danger deleteLeagueButton" type="submit"><b>Delete League</b></button>
+            </div>
+         </div>
+      </form>
+   </div>
+   <button (click)="deSelect()" [class.d-none]="!selected" class="btn btn-primary" style="margin: 0">Back</button>
+   <div [class.d-none]="settings" class="row text-center">
       <div *ngFor="let team of teams; index as i" [class.d-none]="selected && selected != i+1" class="team-container">
          <div (click)="select(i+1)" class="team-box">
             <div  class="team-name">{{users[team.userid].username}}</div>
@@ -21,7 +35,7 @@
                <div class="row w-100" style="margin: auto; padding-top: 0;">
                   <div *ngFor="let school of team.schools" class="col-12" style="padding: 0">
                      <div class="school-box">
-                        <div class="school-text" (click)="removeSchool(schoolsJSON[school]._id,i)"[style.background-color]="schoolsJSON[school].primary_color" [style.color]="schoolsJSON[school].secondary_color">
+                        <div class="school-text" (click)="removeSchool(schoolsJSON[school]._id,i)" (mouseenter)="mouseIn(schoolsJSON[school]._id)" (mouseleave)="mouseOut()" [style.background-color]="mouseSchool === schoolsJSON[school]._id && selected ? 'white' : schoolsJSON[school].primary_color" [style.color]="mouseSchool === schoolsJSON[school]._id && selected ? schoolsJSON[school].primary_color : schoolsJSON[school].secondary_color">
                            <!-- <button class="align-middle btn btn-danger" style="float: left; border-radius: 10%; padding-top: 0; padding-bottom: 0; padding-left: 5%; padding-right: 5%; margin: auto;"><strong>-</strong></button> -->
                            <b>{{schoolsJSON[school].school}}</b>
                         </div>
@@ -33,9 +47,9 @@
       </div>
    </div>
 </div>
-<div *ngIf="schools" [class.d-none]="!selected || teams[selected-1].schools.length > 5" class="container">
+<div *ngIf="schools" [class.d-none]="!selected || teams[selected-1].schools.length > 5" class="container-fluid">
    <div class="row text-center">
-      <div *ngFor="let school of schools" (click)="selectSchool(school)" [class.d-none]="unavailable[school._id]" class="col-3 pick-school" [style.background-color]="school.primary_color" [style.color]="school.secondary_color">
+      <div *ngFor="let school of schools" (click)="selectSchool(school)" (mouseenter)="mouseIn(school._id)" (mouseleave)="mouseOut()" [class.d-none]="unavailable[school._id]" class="col-3 pick-school" [style.background-color]="mouseSchool === school._id ? 'white' : school.primary_color" [style.color]="mouseSchool === school._id ? school.primary_color : school.secondary_color">
             <b>{{school.school}}</b>
       <div>
    </div>

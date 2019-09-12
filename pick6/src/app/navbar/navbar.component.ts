@@ -22,4 +22,12 @@ export class NavbarComponent implements OnInit {
      this.router.navigate(['login']);
   }
 
+  logoLink() {
+     if (this.currentUser) {
+        this.router.navigate(['/myleagues']);
+     } else {
+        this.router.navigate(['/']);
+     }
+ }
+
 }

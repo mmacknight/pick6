@@ -1,0 +1,9 @@
+.labels {
+   font-size: 2vw;
+}
+
+@media only screen and (max-width: 600px) {
+   .labels {
+      font-size: 5vw;
+   }
+}

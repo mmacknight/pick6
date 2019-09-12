@@ -1,0 +1,36 @@
+<div class="container-fluid"  style="width: 92%; margin: 4%; margin-top: 0; padding: 0">
+   <div *ngIf="!currentUser" class="row text-center" style="padding: 0;">
+      <button routerLink="/login" class="btn btn-primary top-button">Login</button>
+      <button routerLink="/register" class="btn btn-success top-button">Sign Up</button>
+   </div>
+   <div *ngIf="currentUser" class="row text-center" style="padding: 0;">
+      <button routerLink="/myleagues" class="btn btn-danger top-button">My Leagues</button>
+      <button routerLink="/createleague" class="btn btn-success top-button">Create League</button>
+   </div>
+   <div class="about-container text-center rounded">
+      <b>How to play CFB Pick6:</b>
+      <div class="row" style="padding: 0;">
+         <div class="item rounded">
+            <div class="header rounded"><strong>Create/Join a League</strong></div>
+            <div class="text">
+               <app-create-league class="text-left"></app-create-league>
+            </div>
+         </div>
+         <div class="item rounded">
+            <div class="header rounded"><strong>Pick 6 CFB Teams</strong></div>
+            <div class="text">
+               <app-assign-team></app-assign-team>
+            </div>
+         </div>
+         <div class="item rounded">
+            <div class="header rounded"><strong>Earn Points for Each Team Win</strong></div>
+            <div class="text">
+               <div class="league-container">
+                  <app-league-tile [inp]="['5d79dcbf5d10bd6db024df96', 'Example League', '5d79dcad5d10bd6db024df95']"  class="league-box">
+                  </app-league-tile>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

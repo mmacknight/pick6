@@ -1,22 +1,20 @@
 .team-container {
-   width: 23%;
-   margin: 1%;
+   width: 95%;
+   margin: 2.5%;
    /* border-style: solid; */
    border: 5%;
    /* border-color: black; */
    border-radius: 2%;
    cursor: pointer;
-}
-div.team-container:hover {
-   border-style: solid;
-   border-color: white;
+   overflow: hidden
 }
 
 .team-box {
    width: 100%;
-   padding-top: 90%;
-   padding-bottom: 90%;
+   padding-top: 60%;
+   padding-bottom: 60%;
    position: relative;
+   overflow: hidden;
 }
 
 .team-name {
@@ -35,7 +33,7 @@ div.team-container:hover {
 .team-info {
    position: absolute;
    width: 100%;
-   top: 20%;
+   top: 12%;
    left: 0;
    bottom: 0;
    right: 0;
@@ -135,16 +133,14 @@ div.team-container:hover {
 
 
 @media only screen and (max-width: 600px) {
-  .team-container {
-     width: 48%;
-    }
+
     .team-name {
        font-size: 5vw;
    }
     .school-box {
        /* padding-top: 20%;
        padding-bottom: 20%; */
-       font-size: 3vw;
+       font-size: 4vw;
    }
    .pick-school {
       font-size: 3vw;

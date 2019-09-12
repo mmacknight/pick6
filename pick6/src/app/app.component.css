@@ -1,0 +1,30 @@
+.background {
+  width: 100%;
+  background-size: cover;
+  background-image: linear-gradient(rgba(0, 100, 0, 0.5), rgba(0, 0, 255, 0.5)), url("./background.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  object-fit: cover;
+  overflow: scroll;
+  -ms-overflow-style: none;
+ scrollbar-width: none;
+
+  /* background-position: center; */
+  /* -webkit-filter: grayscale(100%);  */
+   /* filter: grayscale(100%); */
+}
+
+.background::-webkit-scrollbar {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+
+   .background {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+   }
+   .background::-webkit-scrollbar {
+       display: none;
+   }
+}

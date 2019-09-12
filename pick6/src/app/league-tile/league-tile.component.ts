@@ -19,10 +19,8 @@ export class LeagueTileComponent implements OnInit {
    league_id: String;
    league_name: String;
    user_id: String;
-   getTeamService: GetTeamService;
 
   constructor(private _getTeamService: GetTeamService, private _getSchoolsService: GetSchoolsService) {
-     this.getTeamService = _getTeamService;
      _getSchoolsService.getSchools().subscribe(
       data => {
           if (data.success) {
@@ -37,10 +35,12 @@ export class LeagueTileComponent implements OnInit {
      this.league_id = input[0];
      this.league_name = input[1];
      this.user_id = input[2];
-     this.getTeamService.getTeam(this.league_id, this.user_id).subscribe(
+     console.log("HEEEERRREEE",this.league_id,this.user_id);
+     this._getTeamService.getTeam(this.league_id, this.user_id).subscribe(
         data => {
            console.log(data);
            if (data.success) {
+             console.log(data.team);
              this.team = data.team;
              this.schools = ['','','','','',''];
              this.team.school0 ? this.schools[0] = this.team.school0 : 0;

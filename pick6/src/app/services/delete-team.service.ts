@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { League } from '../models/league';
 import { throwError as observableThrowError, Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from '@environments/environment';
@@ -9,15 +8,15 @@ import { environment } from '@environments/environment';
   providedIn: 'root'
 })
 
-export class GetLeaguesService {
+export class DeleteTeamService {
 
-   _url = environment.server+'/api/getleagues';
+   _url = environment.server+'/api/deleteTeam';
 
   constructor(private _http: HttpClient) {
   }
 
-  getLeagues(userid: String) {
-     return this._http.post<any>(this._url, {"_id": userid}).pipe(catchError(this.errorHandler));
+  deleteTeam(teamid: String) {
+     return this._http.post<any>(this._url, {"team_id": teamid}).pipe(catchError(this.errorHandler));
   }
   errorHandler(error: HttpErrorResponse) {
     return observableThrowError(error.message || "Server Error");

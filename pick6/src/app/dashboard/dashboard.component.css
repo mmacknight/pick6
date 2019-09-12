@@ -1,10 +1,16 @@
 .league-container {
    width: 45%;
-   margin: auto;
-
-   padding-top: 23%;
-   padding-bottom: 23%;
+   margin: 2.5%;
+   overflow: hidden;
+   /* padding-top: 23%;
+   padding-bottom: 23%; */
    position: relative;
+   cursor: pointer;
+   border-radius: 7%;
+}
+div.league-container:hover {
+   border-style: solid;
+   border-color: white;
 }
 /*
 .league-box {
@@ -42,9 +48,8 @@
 @media only screen and (max-width: 600px) {
   .league-container {
      width: 90%;
-     padding-top: 50%;
-     padding-bottom: 50%;
-     margin-top: 2%;
-     margin-bottom: 2%;
+     /* padding-top: 50%; */
+     /* padding-bottom: 50%; */
+     margin: 5%;
  }
 }

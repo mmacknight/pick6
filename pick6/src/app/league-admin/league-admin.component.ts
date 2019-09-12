@@ -10,7 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { AddTeamService } from '../services/add-team.service'
 import { UpdateTeamService } from '../services/update-team.service';
-
+import { DeleteLeagueService } from '../services/delete-league.service';
+import { DeleteTeamService } from '../services/delete-team.service';
 
 @Component({
   selector: 'app-league-admin',
@@ -31,15 +32,32 @@ export class LeagueAdminComponent implements OnInit {
       unavailable = {};
       addFailure = false;
       addSuccess = false;
-      addTeam = false;
+      settings = false;
+      mouseSchool = 0;
       // removeTeam = false;
 
-     constructor(private _updateTeam: UpdateTeamService, private _addTeam: AddTeamService, private _getSchools: GetSchoolsService, private router: Router, private route: ActivatedRoute, private _leaguesPage: LeaguePageService, private _loginService: LoginService) {
+     constructor(private _deleteLeague: DeleteLeagueService, private _deleteTeam: DeleteTeamService, private _updateTeam: UpdateTeamService, private _addTeam: AddTeamService, private _getSchools: GetSchoolsService, private router: Router, private route: ActivatedRoute, private _leaguesPage: LeaguePageService, private _loginService: LoginService) {
         if (!this._loginService.currentUserValue) {
             this.router.navigate(['/login']);
         };
+        this.getLeague();
+        _getSchools.getSchools().subscribe(
+           data => {
+             if (data.success) {
+                this.schools = data.schools;
+                this.schoolsJSON = data.schoolsJSON;
+                // console.log(this.schools);
+             }
+          }
+        )
+     }
+
+     ngOnInit() {
+     }
+
+     getLeague() {
         this.league = new League();
-        this.id = route.snapshot.paramMap.get('id');
+        this.id = this.route.snapshot.paramMap.get('id');
         this._loginService.currentUser.subscribe(
            user =>  {
               this.currentUser = user,
@@ -59,6 +77,7 @@ export class LeagueAdminComponent implements OnInit {
                         team.school4 ? team.schools[4] = team.school4 : 0,
                         team.school5 ? team.schools[5] = team.school5 : 0,
                         team.schools = team.schools.filter(item => item !== '');
+                        team.schools.map(school => this.unavailable[school] = 1);
                      }),
                       this.users = data.users,
                       console.log(this.users),
@@ -70,18 +89,6 @@ export class LeagueAdminComponent implements OnInit {
               )
            }
         );
-        _getSchools.getSchools().subscribe(
-           data => {
-             if (data.success) {
-                this.schools = data.schools;
-                this.schoolsJSON = data.schoolsJSON;
-                // console.log(this.schools);
-             }
-          }
-        )
-     }
-
-     ngOnInit() {
      }
 
      select(index) {
@@ -90,8 +97,8 @@ export class LeagueAdminComponent implements OnInit {
 
      selectSchool(school) {
         this.teams[this.selected-1].schools[this.teams[this.selected-1].schools.length] = school._id;
-        // this.deSelect()
         this.unavailable[school._id] = true;
+        this.mouseOut();
      }
 
      removeSchool(id,team_id) {
@@ -99,9 +106,12 @@ export class LeagueAdminComponent implements OnInit {
            this.teams[this.selected-1].schools = this.teams[this.selected-1].schools.filter(item => item !== id);
            this.unavailable[id] = false;
         }
+        this.mouseOut()
      }
 
      onSubmit(user) {
+        this.addFailure = false;
+        this.addSuccess = false;
         console.log(user);
         this._addTeam.add(user, this.league)
         .subscribe(
@@ -109,6 +119,7 @@ export class LeagueAdminComponent implements OnInit {
              if (data.success) {
                 console.log('Success!', JSON.stringify(data));
                 this.addSuccess = true;
+                this.getLeague();
              } else {
                 this.addFailure = true;
              }
@@ -134,10 +145,48 @@ export class LeagueAdminComponent implements OnInit {
         )
      }
 
-     toggleAddTeam() {
-        this.addTeam = !this.addTeam;
+     deleteTeam(teamid) {
+        console.log(teamid);
+        this._deleteTeam.deleteTeam(teamid).subscribe(
+           data => {
+             if (data.success) {
+                this.getLeague();
+             } else {
+
+             }
+          }
+        )
      }
 
+     deleteLeague() {
+        this._deleteLeague.deleteLeague(this.id).subscribe(
+           data => {
+             if (data.success) {
+                this.router.navigate(['/myleagues']);
+             } else {
+
+             }
+          }
+        )
+     }
+
+     toggleSettings() {
+        this.addFailure = false;
+        this.addSuccess = false;
+        this.settings = !this.settings;
+     }
+
+     mouseIn(id) {
+        this.mouseSchool = id;
+     }
+
+     mouseOut() {
+        this.mouseSchool = 0;
+     }
+
+     goToLeague() {
+        this.router.navigate(['/league',this.id]);
+     }
      // toggleRemoveTeam() {
      //    this.removeTeam = !this.removeTeam;
      // }

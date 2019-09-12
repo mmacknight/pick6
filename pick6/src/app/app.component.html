@@ -1,3 +1,7 @@
-<app-navbar [currentUser]="currentUser"></app-navbar>
+<div class="background" (window:resize)="getHeight()" [style.height]="height+'px'">
+   <div [style.margin-bottom]="getMargin()">
+      <app-navbar [currentUser]="currentUser"></app-navbar>
+   </div>
 
-<router-outlet></router-outlet>
+   <router-outlet></router-outlet>
+</div>

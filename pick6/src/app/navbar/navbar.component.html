@@ -1,12 +1,15 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-bottom: 2%">
-  <a class="navbar-brand" routerLink='/'><b>CFB Pick6</b></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" (click)="logoLink()" style="color: white; cursor: pointer"><b>CFB Pick6</b></a>
+  <button class="navbar-toggler" type="button" data-toggle="dropdown" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
      <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+    <ul class="navbar-nav mr-auto mt-2 mt-xs-0">
       <li class="nav-item active">
         <a class="nav-link" routerLink='/'>Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink='/myleagues'>My Leagues</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink='/createleague'>Create League</a>
@@ -19,7 +22,7 @@
         </a>
         <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
           <!-- <a class="dropdown-item" href="#">Action</a> -->
-          <a class="dropdown-item" routerLink='/account'>Account Settings</a>
+          <a *ngIf="currentUser" class="dropdown-item" routerLink='/account'>Account Settings</a>
           <div *ngIf="currentUser" class="dropdown-divider"></div>
           <button *ngIf="currentUser" class="btn btn-danger navbar-btn" (click)="logout()" style="width: 90%; margin: 2%" routerLink='/login'>Log Out</button>
           <button *ngIf="!currentUser" class="btn btn-primary navbar-btn" style="width: 90%; margin: 2%" routerLink='/login'>Login</button>

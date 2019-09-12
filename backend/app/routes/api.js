@@ -360,6 +360,43 @@ module.exports = function(router) {
       })
    });
 
+   router.post('/deleteleague',function(req,res) {
+      console.log(req.body);
+      if (!req.body.league_id) {
+         res.send({success: false, error: "Invalid Form"})
+      } else {
+         Team.deleteMany({"leagueid": req.body.league_id}, function(err, result) {
+            console.log(result);
+            if (err) {
+               res.send({success: false, error: "Unable to Delete"});
+            } else {
+               League.deleteOne({"_id": req.body.league_id}, function(err, result) {
+                  if (err) {
+                     res.send({success: false, error: "Unable to Delete"});
+                  } else {
+                     res.send({success: true});
+                  }
+               });
+            }
+         });
+      }
+   });
+
+   router.post('/deleteteam',function(req,res) {
+      if (!req.body.team_id) {
+         res.send({success: false, error: "Invalid Form"})
+      } else {
+         Team.deleteMany({"_id": req.body.team_id}, function(err, result) {
+            console.log(result);
+            if (err) {
+               res.send({success: false, error: "Unable to Delete"});
+            } else {
+               res.send({success: true});
+            }
+         });
+      }
+   });
+
 
    return router;
 }

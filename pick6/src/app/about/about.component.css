@@ -1,0 +1,113 @@
+.background {
+  width: 100%;
+  background-size: cover;
+  background-image: linear-gradient(rgba(0, 100, 0, 0.5), rgba(0, 0, 255, 0.5)), url("../background.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  object-fit: cover;
+  overflow: scroll;
+
+  /* background-position: center; */
+  /* -webkit-filter: grayscale(100%);  */
+   /* filter: grayscale(100%); */
+}
+
+.league-container {
+   margin-top: 2%;
+   width: 100%;
+   border-radius: 7%;
+   /* margin: 2.5%; */
+   overflow: hidden;
+   /* padding-top: 30%; */
+   /* padding-bottom: 30%; */
+   position: relative;
+   cursor: pointer;
+}
+
+.top-button {
+   width: 40%;
+   margin: 5%;
+   font-size: 3.5vw;
+}
+
+
+.item {
+   width: 32.333333%;
+   margin: 0.5%;
+}
+
+.header {
+   padding-top: 5%;
+   padding-bottom: 5%;
+   position: relative;
+   top: 0;
+   color: white;
+   background-color: orange;
+   font-size: 1.5vw;
+}
+
+/* img {
+   width: 50%;
+   margin-left: 25%;
+   margin-right: 25%;
+   object-fit: cover;
+} */
+
+.text {
+   position: relative;
+   font-size: 1.5vw;
+   opacity: 100;
+   color: black;
+   height: 100%;
+}
+
+.about-container {
+   font-size: 3.75vw;
+   width: 100%;
+   color: white;
+   margin:
+}
+
+@media only screen and (max-width: 600px) {
+   .item {
+      width: 90%;
+      margin: 5%;
+
+   }
+   .about-container {
+      font-size: 5vw;
+      margin-top: 5%;
+
+   }
+   .header {
+      font-size: 4vw;
+   }
+   .text {
+      font-size: 4vw;
+   }
+   /* .background {
+      overflow: scroll;
+   } */
+   .background {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+   }
+   .background::-webkit-scrollbar {
+       display: none;
+   }
+   .top-button {
+      padding: 5%;
+      width: 50%;
+      margin: 0%;
+   }
+   .league-container {
+      margin-top: 2%;
+      width: 100%;
+      /* margin: 2.5%; */
+      overflow: hidden;
+      padding-top: 0%;
+      padding-bottom: 0%;
+      position: relative;
+      cursor: pointer;
+   }
+}

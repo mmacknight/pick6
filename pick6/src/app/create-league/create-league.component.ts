@@ -21,19 +21,33 @@ export class CreateLeagueComponent implements OnInit {
   teams = []
   data = {};
   invalid = false;
+  example = false;
 
   constructor(private _createLeague: CreateLeague, private _addTeam: AddTeamService, private _loginService: LoginService, private router: Router) {
-     if (!this._loginService.currentUserValue) {
-         this.router.navigate(['/login']);
-     };
-     this._loginService.currentUser.subscribe(
-        x =>  {
-           this.currentUser = x
-           this.league = new League();
-           // this.league = _newLeague.newLeague();
-           this.league.admin = x._id;
-        }
-     );
+     if (this.router.url == '/') {
+        this.currentUser = new User();
+        this.currentUser.username = "exampleplayer";
+        this.currentUser.first = "Example";
+        this.currentUser.last = "Player";
+        this.currentUser._id = "5d79dcad5d10bd6db024df95";
+        this.example = true;
+        this.league = new League();
+        this.league.name = "Example League";
+        this.league._id = "5d79dcbf5d10bd6db024df96";
+        this.league.admin = "5d79dcbf5d10bd6db024df96";
+     } else {
+        if (!this._loginService.currentUserValue) {
+            this.router.navigate(['/login']);
+        };
+        this._loginService.currentUser.subscribe(
+           x =>  {
+              this.currentUser = x
+              this.league = new League();
+              // this.league = _newLeague.newLeague();
+              this.league.admin = x._id;
+           }
+        );
+     }
   }
 
   ngOnInit() {
@@ -54,6 +68,7 @@ export class CreateLeagueComponent implements OnInit {
                   console.log(this.league._id),
                   console.log('Success!', JSON.stringify(data)),
                   this.sendTeams(this.league.teams);
+                  this.router.navigate(['/leagueadmin',this.league._id]);
                }
                else {
                   console.log('Failure!', JSON.stringify(data)),

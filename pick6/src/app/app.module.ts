@@ -6,6 +6,7 @@ import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LeagueTileComponent } from './league-tile/league-tile.component';
+import { AssignTeamComponent } from './assign-team/assign-team.component';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { LeagueTileComponent } from './league-tile/league-tile.component';
     AppComponent,
     routingComponents,
     NavbarComponent,
-    LeagueTileComponent
+    LeagueTileComponent,
+    AssignTeamComponent
   ],
   imports: [
     BrowserModule,

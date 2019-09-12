@@ -9,15 +9,15 @@ import { environment } from '@environments/environment';
   providedIn: 'root'
 })
 
-export class GetLeaguesService {
+export class DeleteLeagueService {
 
-   _url = environment.server+'/api/getleagues';
+   _url = environment.server+'/api/deleteleague';
 
   constructor(private _http: HttpClient) {
   }
 
-  getLeagues(userid: String) {
-     return this._http.post<any>(this._url, {"_id": userid}).pipe(catchError(this.errorHandler));
+  deleteLeague(leagueid: String) {
+     return this._http.post<any>(this._url, {"league_id": leagueid}).pipe(catchError(this.errorHandler));
   }
   errorHandler(error: HttpErrorResponse) {
     return observableThrowError(error.message || "Server Error");

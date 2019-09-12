@@ -1,21 +1,21 @@
-<div class="container-fluid mb-5">
-   <h3>Create a League</h3>
+<div class="rounded" style="width: 90%; margin: 5%; padding: 2%; background-color: white">
+   <h4>Create a League</h4>
    <form #leagueform="ngForm" (ngSubmit)="onSubmit(leagueform)" novalidate>
       <div class="form-group">
-         <label>League Name</label>
-         <input  type="text" required #leaguename="ngModel" [class.is-invalid]="leaguename.invalid && leaguename.touched" class="form-control" name="leaguename" [(ngModel)]=league.name>
+         <label class="labels">League Name</label>
+         <input  [disabled]="example" type="text" required #leaguename="ngModel" [class.is-invalid]="leaguename.invalid && leaguename.touched" class="form-control" name="leaguename" [(ngModel)]=league.name>
          <small class="text-danger" [class.d-none]="leaguename.valid || leaguename.untouched">Field is required.</small>
-         <small class="text-danger" [class.d-none]="!invalid">Invalid data entry.</small>
+         <small class="text-danger" [class.d-none]="!invalid">Invalid data entry. Name may already be in use</small>
       </div>
 
       <h4>Teams
          <div class="btn-group">
-            <button [disabled]="n_teams <= 0" type="button" class="btn btn-danger" (click)="subtractTeam()"><strong>-</strong></button>
-            <button [disabled]="n_teams > max_teams-2" type="button" class="btn btn-primary" (click)="addTeam()"><strong>+</strong></button>
+            <button [disabled]="example || n_teams <= 0" type="button" class="btn btn-danger" (click)="subtractTeam()"><strong>-</strong></button>
+            <button [disabled]="example || n_teams > max_teams-2" type="button" class="btn btn-primary" (click)="addTeam()"><strong>+</strong></button>
          </div>
       </h4>
       <div class="form-group">
-         <label>Admin</label>
+         <label class="labels">Admin</label>
          <input [disabled]="true" type="text" class="form-control" value={{currentUser.username}}>
          <!-- <small class="text-danger" [class.d-none]="team.valid || team.untouched">Field is required.</small> -->
       </div>
@@ -29,6 +29,6 @@
          </div>
       </div>
 
-      <button [disabled]="leagueform.form.invalid" class="btn btn-primary" type="submit">Create</button>
+      <button [disabled]="example || leagueform.form.invalid" class="btn btn-primary" type="submit">Create</button>
    </form>
 </div>

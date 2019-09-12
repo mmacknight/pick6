@@ -1,0 +1,17 @@
+<div *ngFor="let team of teams; index as i" class="team-container">
+   <div class="team-box">
+      <div  class="team-name">{{currentUser.username}}</div>
+      <div class="team-info">
+         <div class="row w-100" style="margin: auto; padding-top: 0;">
+            <div *ngFor="let school of team.schools" class="col-12" style="padding: 0">
+               <div class="school-box">
+                  <div class="school-text" [style.background-color]="schoolsJSON[school].primary_color" [style.color]="schoolsJSON[school].secondary_color">
+                     <!-- <button class="align-middle btn btn-danger" style="float: left; border-radius: 10%; padding-top: 0; padding-bottom: 0; padding-left: 5%; padding-right: 5%; margin: auto;"><strong>-</strong></button> -->
+                     <b>{{schoolsJSON[school].school}}</b>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

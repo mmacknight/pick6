@@ -9,8 +9,10 @@ var TeamSchema = new Schema({
    school2: { type: String },
    school3: { type: String },
    school4: { type: String },
-   school5: { type: String }
+   school5: { type: String },
 });
+
+TeamSchema.index({ userid: 1, leagueid: 1}, { unique: true });
 
 
 module.exports = mongoose.model('Team',TeamSchema);
