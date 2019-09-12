@@ -24,6 +24,7 @@ export class LeagueComponent implements OnInit {
    id: String;
    teams = [];
    users = {};
+   rank = {};
    currentUser: User;
    selected = 0;
    schools = [];
@@ -74,6 +75,13 @@ export class LeagueComponent implements OnInit {
                           });
 
                           this.teams = this.teams.sort((a,b) => { return b.wins - a.wins});
+                          for (var i = 0; i < this.teams.length; i++) {
+                             if (i === 0) {
+                                this.rank[this.teams[i]._id] = 1;
+                             } else {
+                                this.rank[this.teams[i]._id] = this.teams[i].wins != this.teams[i-1].wins ? i+1 : this.rank[this.teams[i-1]._id];
+                             }
+                          }
                        }
                     }
                  ),
@@ -85,6 +93,7 @@ export class LeagueComponent implements OnInit {
         }
      );
 
+     console.log("RANK",this.rank);
    }
 
    getWidth() {
