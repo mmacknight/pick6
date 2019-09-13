@@ -27,7 +27,7 @@
 .top-button {
    width: 40%;
    margin: 5%;
-   font-size: 3.5vw;
+   font-size: 3vw;
 }
 
 
@@ -99,6 +99,7 @@
       padding: 5%;
       width: 50%;
       margin: 0%;
+      border-radius: 0;
    }
    .league-container {
       margin-top: 2%;
