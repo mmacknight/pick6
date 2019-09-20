@@ -9,10 +9,10 @@
    border-radius: 7%;
    -webkit-tap-highlight-color: white;
 }
-div.league-container:hover {
+/* div.league-container:hover {
    border-style: solid;
    border-color: white;
-}
+} */
 
 .empty {
    padding-top: 30%;
@@ -21,6 +21,11 @@ div.league-container:hover {
    color: gray;
    -webkit-text-stroke-width: 0.1vw;
    -webkit-text-stroke-color: white;
+}
+
+.hoverClass {
+   border-style: solid;
+   border-color: white;
 }
 
 
@@ -70,6 +75,6 @@ div.league-container:hover {
  .league-container:hover {
     border-style: none;
     border-color: white;
-}
+ }
 
 }

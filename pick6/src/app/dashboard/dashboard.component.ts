@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
 
    leagues = [];
    currentUser: User;
+   hovering = [];
 
   constructor(private router: Router, private _getLeaguesService: GetLeaguesService, private _loginService: LoginService) {
      this._loginService.currentUser.subscribe(
@@ -24,7 +25,8 @@ export class DashboardComponent implements OnInit {
                 data => {
                    console.log(data),
                    console.log('Success!', JSON.stringify(data)),
-                   this.leagues = data.leagues
+                   this.leagues = data.leagues,
+                   this.hovering.push(0)
                 },
                 error => console.error('Error!', error)
              )
@@ -39,5 +41,13 @@ export class DashboardComponent implements OnInit {
   onSelect(id) {
      this.router.navigate(['league',id]);
  }
+
+ onHover(index) {
+      this.hovering[index] = 1;
+ }
+
+ offHover(index) {
+    this.hovering[index] = 0;
+}
 
 }
