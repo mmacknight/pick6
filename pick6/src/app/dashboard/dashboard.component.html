@@ -7,7 +7,7 @@
    </div>
 
    <div class="row">
-      <div *ngFor="let league of leagues; index as i" class="league-container" (mouseenter)="onHover(i)" (mouseleave)="offHover(i)" (touchstart)="onHover(i)" (touchend)="offHover(i)" [class.hoverClass]=hovering[i]>
+      <div *ngFor="let league of leagues; index as i" class="league-container" (mouseenter)="onHover(i)" (mouseleave)="offHover(i)" ontouchstart="onHover(i)" ontouchend="offHover(i)" [class.hoverClass]=hovering[i]>
          <app-league-tile [inp]="[league._id, league.name, currentUser._id]" (click)="onSelect(league._id)" class="league-box">
          </app-league-tile>
       </div>
