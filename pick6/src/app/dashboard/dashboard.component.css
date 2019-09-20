@@ -12,6 +12,17 @@ div.league-container:hover {
    border-style: solid;
    border-color: white;
 }
+
+.empty {
+   padding-top: 30%;
+   padding-bottom: 30%;
+   font-size: 5vw;
+   color: gray;
+   -webkit-text-stroke-width: 0.1vw;
+   -webkit-text-stroke-color: white;
+}
+
+
 /*
 .league-box {
    width: 100%%;
@@ -48,8 +59,13 @@ div.league-container:hover {
 @media only screen and (max-width: 600px) {
   .league-container {
      width: 90%;
-     /* padding-top: 50%; */
-     /* padding-bottom: 50%; */
      margin: 5%;
  }
+ .empty {
+      font-size: 8vw;
+      -webkit-text-stroke-width: 0.15vw;
+      -webkit-text-stroke-color: white;
+ }
+
+
 }
