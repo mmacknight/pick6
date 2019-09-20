@@ -7,6 +7,7 @@
    position: relative;
    cursor: pointer;
    border-radius: 7%;
+   -webkit-tap-highlight-color: white;
 }
 div.league-container:hover {
    border-style: solid;
@@ -66,6 +67,9 @@ div.league-container:hover {
       -webkit-text-stroke-width: 0.15vw;
       -webkit-text-stroke-color: white;
  }
-
+ .league-container:hover {
+    border-style: none;
+    border-color: white;
+}
 
 }
