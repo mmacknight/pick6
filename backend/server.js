@@ -6,6 +6,7 @@ var morgan = require('morgan');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var router = express.Router();
+var rfs = require('rotating-file-stream')
 var appRoutes = require('./app/routes/api')(router);
 var path = require('path');
 var cors = require('cors');
@@ -37,7 +38,14 @@ var csp = require('helmet-csp');
 // }))
 
 app.use(allowCrossDomain);
-app.use(morgan('dev'));
+// create a rotating write stream
+var accessLogStream = rfs('access.log', {
+  interval: '1d', // rotate daily
+  path: path.join(__dirname, 'log')
+})
+
+// setup the logger
+app.use(morgan('combined', { stream: accessLogStream }))
 app.use(cors({
    origins: allowedOrigins
 }));
@@ -59,6 +67,15 @@ mongoose.connect('mongodb+srv://'+process.env.DB_USER+':'+process.env.DB_PASS+'@
    }
 });
 
+// var logger = function(req, res, next) {
+//     console.log("GOT REQUEST !");
+//     next(); // Passing the request to the next handler in the stack.
+// }
+//
+// app.configure(function(){
+//     app.use(logger); // Here you add your logger to the stack.
+//     app.use(app.router); // The Express routes handler.
+// });
 
 app.listen(port, function(req,res) {
    console.log('Running server on port ' + port);
