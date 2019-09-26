@@ -9,6 +9,7 @@ import { LeagueTileComponent } from './league-tile/league-tile.component';
 import { AssignTeamComponent } from './assign-team/assign-team.component';
 import 'hammerjs';
 import 'hammer-timejs';
+import { StandingComponent } from './standing/standing.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import 'hammer-timejs';
     routingComponents,
     NavbarComponent,
     LeagueTileComponent,
-    AssignTeamComponent
+    AssignTeamComponent,
+    StandingComponent
   ],
   imports: [
     BrowserModule,

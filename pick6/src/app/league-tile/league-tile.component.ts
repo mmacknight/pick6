@@ -35,7 +35,6 @@ export class LeagueTileComponent implements OnInit {
      this.league_id = input[0];
      this.league_name = input[1];
      this.user_id = input[2];
-     console.log("HEEEERRREEE",this.league_id,this.user_id);
      this._getTeamService.getTeam(this.league_id, this.user_id).subscribe(
         data => {
            console.log(data);

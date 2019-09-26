@@ -104,7 +104,7 @@ setInterval(function() {
          } else {
             var split_body = function (body, next) {
                try {
-                  result = body.split('<script type=\'text/javascript\'>window[\'__espnfitt__\']=')[1].split('\"groups\":')[2].split(';</script>')[0].split('},\"requestedDates\":')[0];
+                  result = body.split('<script type=\'text/javascript\' >window[\'__espnfitt__\']=')[1].split('\"groups\":')[2].split(';</script>')[0].split('},\"requestedDates\":')[0];
                   next(null,result);
                } catch (e) {
                   next(e)

@@ -5,7 +5,7 @@ var path = require('path');
 var Team = require('../models/team');
 var bcrypt = require('bcrypt-nodejs');
 var ObjectID = require('mongodb').ObjectID;
-
+var Math = require('math');
 
 module.exports = function(router) {
    router.post('/register',function(req,res) {
@@ -395,6 +395,89 @@ module.exports = function(router) {
             }
          });
       }
+   });
+
+   router.get('/games',function(req,res) {
+      const oneWeek = 7 * 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+      const firstTuesday = new Date(2019, 7, 20);
+      var today = new Date(Date.now());
+      const today_ymd = new Date(today.getFullYear(),today.getMonth(),today.getDate(),)
+      const week = Math.floor((today - firstTuesday) / oneWeek);
+      try {
+         var request = require('request');
+         const url = 'https://www.espn.com/college-football/scoreboard/_/group/80/year/2019/seasontype/2/week/'+week
+         request(url, function (error, response, body) {
+            if (error) {
+               console.log(`Error accessing ${url}:`,{success: false, error: error, statusCode: response && response.statusCode});
+            } else {
+               var split_body = function (body, next) {
+                  try {
+                     result = body.split('</script><script>window.espn.scoreboardData 	= ')[1].split(';window.espn.scoreboardSettings')[0];
+                     next(null,result);
+                  } catch (e) {
+                     next(e)
+                  };
+               }
+
+               var data = '';
+               split_body(body, function(err, result) {
+                  data = result;
+               });
+
+               function convert_team_name(name) {
+                  switch (name) {
+                     case "Miami":
+                     name = "Miami (FL)";
+                     break;
+                     case "Florida International":
+                     name = "FIU";
+                     break;
+                     case "Southern Mississippi":
+                     name = "Southern Miss";
+                     break;
+                     case "Hawai&#39;i":
+                     name = "Hawaii";
+                     break;
+                     default: ;
+                  }
+                  return name;
+               }
+
+               games = {}
+               for (let event of JSON.parse(data).events) {
+                  home = convert_team_name(event.competitions[0].competitors[0].team.location);
+                  away = convert_team_name(event.competitions[0].competitors[1].team.location);
+                  game_info = {};
+                  game_info.status = event.competitions[0].status;
+                  game_info.status.type.shortDetail = game_info.status.type.shortDetail.split(' EDT')[0];
+                  game_info.home = home;
+                  game_info.away = away;
+                  game_info.home_color0 = '#'+event.competitions[0].competitors[0].team.color;
+                  game_info.away_color0 = '#'+event.competitions[0].competitors[1].team.color;
+                  game_info.home_color1 = '#'+event.competitions[0].competitors[0].team.alternateColor;
+                  game_info.away_color1 = '#'+event.competitions[0].competitors[1].team.alternateColor;
+                  game_info.home_logo = event.competitions[0].competitors[0].team.logo;
+                  game_info.away_logo = event.competitions[0].competitors[1].team.logo;
+                  game_info.home_score = event.competitions[0].competitors[0].score;
+                  game_info.away_score = event.competitions[0].competitors[1].score;
+                  game_info.home_winner = event.competitions[0].competitors[0].winner || false;
+                  game_info.away_winner = event.competitions[0].competitors[1].winner || false;
+                  if (game_info.home_winner) {
+                     game_info.winner = game_info.home;
+                  } else if (game_info.away_winner) {
+                     game_info.winner = game_info.away;
+                  } else {
+                     game_info.winner = '';
+                  }
+                  games[home] = game_info;
+                  games[away] = game_info;
+               }
+               res.send({success: true, games: games});
+            }
+            });
+         } catch (e) {
+            res.send({success: false, message: "Unable to Load Games"});
+         }
    });
 
 

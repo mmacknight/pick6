@@ -1,41 +1,7 @@
 <div class="container" style="margin: auto; width: 90%; max-width: 100%;" (window:resize)="getWidth()">
    <div class="row text-center">
-      <div *ngFor="let team of teams; index as i"  class="team-container">
-         <div class="row" style="margin: auto; padding: 0">
-            <div class="rank-box">
-               <!-- <div class="my-auto"> -->
-                  <div class="rank-text">
-                     <b>{{rank[team._id]}}</b>
-                  </div>
-               <!-- </div> -->
-            </div>
-            <div class="row" style="margin: 0; padding: 0; width: 85%">
-               <div class="team-name">{{users[team.userid].username.length  <= 10 || width <= 600 ? users[team.userid].username : users[team.userid].first[0]+users[team.userid].last[0] | uppercase}}</div>
-               <div class="team-info">
-                  <div class="row" style="margin: 0; padding-top: 0;">
-                     <div *ngFor="let school of team.schools" class="school-status" style="margin: auto; padding: 0;">
-                        <div class="row" style="margin: 0; padding: 0;">
-                           <div class="school-box">
-                              <div class="school-text" [style.background-color]="schoolsJSON[school].primary_color" [style.color]="schoolsJSON[school].secondary_color">
-                                 <b>{{schoolsJSON[school].school}}</b>
-                              </div>
-                           </div>
-                           <div class="wins-box">
-                              <div class="wins-text" >
-                                 <b>{{schoolsJSON[school].wins}}</b>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div class="team-wins-box">
-               <div class="team-wins-text">
-                  <b>{{team.wins}}</b>
-               </div>
-            </div>
-         </div>
+      <div *ngFor="let team of teams; index as i" style="width: 100%">
+         <app-standing (click)="switchScoreView(i)" [inp]="[team, users[team.userid], rank[team._id], schoolsJSON, scores[i], games, width]"></app-standing>
       </div>
    </div>
 </div>

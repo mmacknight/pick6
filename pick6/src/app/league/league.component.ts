@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { AddTeamService } from '../services/add-team.service'
 import { UpdateTeamService } from '../services/update-team.service';
-
+import { GetGamesService } from '../services/get-games.service';
 
 @Component({
   selector: 'app-league',
@@ -34,8 +34,20 @@ export class LeagueComponent implements OnInit {
    addSuccess = false;
    addTeam = false;
    width = 0;
+   scores = [];
+   games = {};
 
-  constructor( private winRef: WindowRefService, private _updateTeam: UpdateTeamService, private _addTeam: AddTeamService, private _getSchools: GetSchoolsService, private router: Router, private route: ActivatedRoute, private _leaguesPage: LeaguePageService, private _loginService: LoginService) {
+  constructor(private _getGamesService: GetGamesService, private winRef: WindowRefService, private _updateTeam: UpdateTeamService, private _addTeam: AddTeamService, private _getSchools: GetSchoolsService, private router: Router, private route: ActivatedRoute, private _leaguesPage: LeaguePageService, private _loginService: LoginService) {
+     _getGamesService.get_games().subscribe(
+       data => {
+          if (data.success) {
+             this.games = data.games;
+             console.log(this.games);
+          } else {
+
+          }
+       }
+     )
      this.width = winRef.nativeWindow.innerWidth;
      if (!this._loginService.currentUserValue) {
          this.router.navigate(['/login']);
@@ -50,7 +62,6 @@ export class LeagueComponent implements OnInit {
            this._leaguesPage.getLeaguePage(this.id).subscribe(
              data => {
                 if (data.success) {
-                   console.log('Success!'),
                    this.league = data.league,
                    this.teams = data.teams,
                    this.teams.map(team => {
@@ -69,7 +80,6 @@ export class LeagueComponent implements OnInit {
                        if (data.success) {
                           this.schools = data.schools;
                           this.schoolsJSON = data.schoolsJSON;
-                          console.log(this.schoolsJSON);
                           this.teams.map(team => {
                              team.wins = team.schools.map(a => this.schoolsJSON[a].wins).reduce((a,b) => a+b)
                           });
@@ -82,6 +92,7 @@ export class LeagueComponent implements OnInit {
                                 this.rank[this.teams[i]._id] = this.teams[i].wins != this.teams[i-1].wins ? i+1 : this.rank[this.teams[i-1]._id];
                              }
                           }
+                          this.scores = this.teams.map( a => false);
                        }
                     }
                  ),
@@ -93,12 +104,20 @@ export class LeagueComponent implements OnInit {
         }
      );
 
-     console.log("RANK",this.rank);
    }
 
    getWidth() {
       this.width = this.winRef.nativeWindow.innerWidth;
       return(this.winRef.nativeWindow.innerWidth);
+   }
+
+   switchScoreView(index) {
+      if (this.scores[index]) {
+         this.scores = this.scores.map(a => false);
+      } else {
+         this.scores = this.scores.map(a => false);
+         this.scores[index] = !this.scores[index];
+      }
    }
 
    manage(id) {

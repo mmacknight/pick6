@@ -1,0 +1,73 @@
+<div *ngIf="!scores" class="team-container">
+   <div class="row" style="margin: auto; padding: 0">
+      <div class="rank-box">
+         <div class="rank-text">
+            <b>{{rank}}</b>
+         </div>
+      </div>
+      <div class="row" style="margin: 0; padding: 0; width: 85%">
+         <div class="team-name">{{user.username.length  <= 10 || width <= 600 ? user.username : user.first[0]+user.last[0] | uppercase}}</div>
+         <div class="team-info">
+            <div class="row" style="margin: 0; padding-top: 0;">
+               <div *ngFor="let school of team.schools" class="school-status" style="margin: auto; padding: 0;">
+                  <div class="row" style="margin: 0; padding: 0;">
+                     <div class="school-box">
+                        <div class="school-text" [style.background-color]="schoolsJSON[school].primary_color" [style.color]="schoolsJSON[school].secondary_color">
+                           <b>{{schoolsJSON[school].school}}</b>
+                        </div>
+                     </div>
+                     <div class="wins-box">
+                        <div class="wins-text" >
+                           <b>{{schoolsJSON[school].wins}}</b>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="team-wins-box">
+         <div class="team-wins-text">
+            <b>{{team.wins}}</b>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div *ngIf="scores" class="scores-container">
+   <div class="row" style="margin: 0; padding: 0">
+      <div *ngFor="let school of team.schools" class="game-container" >
+         <div *ngIf="games.hasOwnProperty(schoolsJSON[school].school)" class="row" style="margin: 0; padding: 0">
+            <div class="time-game" [style.color]="games[schoolsJSON[school].school].status.type.shortDetail == 'Final' ? (games[schoolsJSON[school].school].winner == schoolsJSON[school].school ? 'white' : 'black') : 'black'" [style.background-color]="games[schoolsJSON[school].school].status.type.shortDetail == 'Final' ? (games[schoolsJSON[school].school].winner == schoolsJSON[school].school ? 'green' : 'red') : 'darkgray'">
+               <strong>{{games[schoolsJSON[school].school].status.type.shortDetail | uppercase}}</strong>
+            </div>
+            <div class="row" style="margin: 0; padding: 0">
+               <div class="team-game" [style.background-color]="games[schoolsJSON[school].school].away_color1">
+                  <img src={{games[schoolsJSON[school].school].away_logo}} alt={{games[schoolsJSON[school].school].away}}>
+               </div>
+               <div class="score-game">
+                  <strong>{{games[schoolsJSON[school].school].away_score}}</strong>
+               </div>
+            </div>
+            <div class="row" style="margin: 0; padding: 0">
+               <div class="team-game" [style.background-color]="games[schoolsJSON[school].school].home_color1">
+                  <img src={{games[schoolsJSON[school].school].home_logo}} alt={{games[schoolsJSON[school].school].home}}>
+               </div>
+               <div class="score-game">
+                  <strong>{{games[schoolsJSON[school].school].home_score}}</strong>
+               </div>
+            </div>
+         </div>
+         <div *ngIf="!games.hasOwnProperty(schoolsJSON[school].school)" [style.background-color]="schoolsJSON[school].primary_color" class="row" style="margin: 0; padding: 0; overflow: hidden">
+            <div class="text-center time-game" style="width: 100%">
+               <b>Bye</b>
+            </div>
+            <div class="school-box" style="width: 100%;">
+               <div class="school-text" [style.background-color]="schoolsJSON[school].primary_color" [style.color]="schoolsJSON[school].secondary_color" style="padding-top: 39.05%; padding-bottom: 39.05%">
+                  <b>{{schoolsJSON[school].school}}</b>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
