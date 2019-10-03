@@ -124,6 +124,7 @@ setInterval(function() {
             // });         // var data = body.split('<script type=\'text/javascript\'>window[\'__espnfitt__\']=')[1].split('\"groups\":')[2].split(';</script>')[0].split('},\"requestedDates\":')[0];
             if (data) {
                console.log("Data Accessed");
+               console.log(data);
             }
             var wins = {};
 

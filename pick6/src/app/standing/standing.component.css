@@ -97,6 +97,23 @@
 
 }
 
+.school-box-bye {
+   width: 100%;
+   font-size: 1.5vw;
+   padding-left: 0%;
+   padding-right: 0%;
+   height: 80%;
+
+}
+
+.school-text-bye {
+   width: 100%;
+   text-align: center;
+   padding-top: 38%;
+   padding-bottom: 38%;
+   height: 100%;
+}
+
 
 .wins-box {
    width: 20%;
@@ -227,6 +244,10 @@
 
    .team-container:hover {
       border-style: none;
+   }
+
+   .school-text-bye {
+      font-size: 3vw;
    }
 
 }

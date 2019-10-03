@@ -58,12 +58,12 @@
                </div>
             </div>
          </div>
-         <div *ngIf="!games.hasOwnProperty(schoolsJSON[school].school)" [style.background-color]="schoolsJSON[school].primary_color" class="row" style="margin: 0; padding: 0; overflow: hidden">
+         <div *ngIf="!games.hasOwnProperty(schoolsJSON[school].school)" [style.background-color]="schoolsJSON[school].primary_color" class="row" style="height: 100%; margin: 0; padding: 0; overflow: hidden">
             <div class="text-center time-game" style="width: 100%">
                <b>Bye</b>
             </div>
-            <div class="school-box" style="width: 100%;">
-               <div class="school-text" [style.background-color]="schoolsJSON[school].primary_color" [style.color]="schoolsJSON[school].secondary_color" style="padding-top: 39.05%; padding-bottom: 39.05%">
+            <div class="school-box-bye">
+               <div class="school-text-bye" [style.background-color]="schoolsJSON[school].primary_color" [style.color]="schoolsJSON[school].secondary_color">
                   <b>{{schoolsJSON[school].school}}</b>
                </div>
             </div>

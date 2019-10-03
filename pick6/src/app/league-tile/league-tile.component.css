@@ -1,11 +1,7 @@
-/* .league-box {
-   width: 100%%;
-   padding: 50%;
-   position: relative;
-} */
 
 .league-name {
    position: relative;
+   width: 100%;
    top: 0;
    left: 0;
    bottom: 0;
@@ -21,7 +17,7 @@
 
 .league-info {
    position: relative;
-   top: 20%;
+   width: 100%;
    left: 0;
    bottom: 0;
    right: 0;
