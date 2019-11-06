@@ -24,7 +24,7 @@
     "helmet-csp": "^2.9.1",
     "math": "0.0.3",
     "mongodb": "^3.3.2",
-    "mongoose": "^5.6.9",
+    "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
     "node-wikipedia": "0.0.2",
     "request": "^2.88.0",
