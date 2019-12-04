@@ -398,14 +398,14 @@ module.exports = function(router) {
    });
 
    router.get('/games',function(req,res) {
-      const oneWeek = 7 * 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-      const firstTuesday = new Date(2019, 7, 20);
-      var today = new Date(Date.now());
-      const today_ymd = new Date(today.getFullYear(),today.getMonth(),today.getDate(),)
-      const week = Math.floor((today - firstTuesday) / oneWeek);
+      // const oneWeek = 7 * 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+      // const firstTuesday = new Date(2019, 7, 20);
+      // var today = new Date(Date.now());
+      // const today_ymd = new Date(today.getFullYear(),today.getMonth(),today.getDate(),)
+      // const week = Math.floor((today - firstTuesday) / oneWeek);
       try {
          var request = require('request');
-         const url = 'https://www.espn.com/college-football/scoreboard/_/group/80/year/2019/seasontype/2/week/'+week
+         const url = 'https://www.espn.com/college-football/scoreboard';
          request(url, function (error, response, body) {
             if (error) {
                console.log(`Error accessing ${url}:`,{success: false, error: error, statusCode: response && response.statusCode});

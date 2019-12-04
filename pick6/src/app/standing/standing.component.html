@@ -38,7 +38,7 @@
    <div class="row" style="margin: 0; padding: 0">
       <div *ngFor="let school of team.schools" class="game-container" >
          <div *ngIf="games.hasOwnProperty(schoolsJSON[school].school)" class="row" style="margin: 0; padding: 0">
-            <div class="time-game" [style.color]="games[schoolsJSON[school].school].status.type.shortDetail == 'Final' ? (games[schoolsJSON[school].school].winner == schoolsJSON[school].school ? 'white' : 'black') : 'black'" [style.background-color]="games[schoolsJSON[school].school].status.type.shortDetail == 'Final' ? (games[schoolsJSON[school].school].winner == schoolsJSON[school].school ? 'green' : 'red') : 'darkgray'">
+            <div class="time-game" [style.color]="games[schoolsJSON[school].school].status.type.shortDetail[0] == 'F' ? (games[schoolsJSON[school].school].winner == schoolsJSON[school].school ? 'white' : 'black') : 'black'" [style.background-color]="games[schoolsJSON[school].school].status.type.shortDetail[0] == 'F' ? (games[schoolsJSON[school].school].winner == schoolsJSON[school].school ? 'green' : 'red') : 'darkgray'">
                <strong>{{games[schoolsJSON[school].school].status.type.shortDetail | uppercase}}</strong>
             </div>
             <div class="row" style="margin: 0; padding: 0">
