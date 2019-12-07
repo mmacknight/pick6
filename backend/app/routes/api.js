@@ -403,14 +403,17 @@ module.exports = function(router) {
       var today = new Date(Date.now());
       const today_ymd = new Date(today.getFullYear(),today.getMonth(),today.getDate(),)
       const week = Math.floor((today - firstTuesday) / oneWeek);
+      var url = '';
       try {
          var request = require('request');
-         if (week > 15) {
-           const url = `https://www.espn.com/college-football/scoreboard/_/group/80/year/2019/seasontype/2/week/${week}`;
+         if (week <= 15) {
+           url = `https://www.espn.com/college-football/scoreboard/_/group/80/year/2019/seasontype/2/week/${week}`;
+           console.log(url);
          }
          else {
-           const url = `https://www.espn.com/college-football/scoreboard/_/group/80/year/2019/seasontype/3/week/1`;
+           url = `https://www.espn.com/college-football/scoreboard/_/group/80/year/2019/seasontype/3/week/1`;
          }
+         console.log(url)
          request(url, function (error, response, body) {
             if (error) {
                console.log(`Error accessing ${url}:`,{success: false, error: error, statusCode: response && response.statusCode});
